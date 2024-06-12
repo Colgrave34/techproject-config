@@ -80,7 +80,7 @@ interface vlan720
  no shutdown
 
 # Configure access ports
-interface range GigabitEthernet0/2-22
+interface GigabitEthernet0/2
  description Access port for Allergist
  switchport mode access
  switchport access vlan 305
