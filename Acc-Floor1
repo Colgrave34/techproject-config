@@ -49,7 +49,7 @@ switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 999
 
 # IP Address
 Int vlan 105
-ip address 10.150.8.0 255.255.255.0
+ip address 10.150.8.1 255.255.255.0
 ipv6 address 2001:bbfc:88ef:8::/64
 description PharmaPlus VLAN
 no shut
