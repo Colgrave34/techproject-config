@@ -94,50 +94,6 @@ no shut
 
 
 #Assign vlans to ports 
-
-interface range GigabitEthernet0/2-22
-description Access port for PharmaPlus
-switchport mode access
-switchport access vlan 115
-no shutdown
-
-interface range GigabitEthernet0/23-41
-description Access port for DynaLabs
-switchport mode access
-switchport access vlan 115
-no shutdown
-
-interface range GigabitEthernet0/42-45
-description Access port for Reception
-switchport mode access
-switchport access vlan 125
-no shutdown
-
-interface range GigabitEthernet0/46-48
-description Access port for Reception
-switchport mode access
-switchport access vlan 135
-no shutdown
-
-interface range GigabitEthernet0/49-51
-description Access port for Facilities
-switchport mode access
-switchport access vlan 145
-no shutdown
-
-interface GigabitEthernet58
-description Access port for Visitor1
-switchport mode access
-switchport access vlan 155
-no shutdown
-
-interface range GigabitEthernet0/52-57
-description Access port for IT
-switchport mode access
-switchport access vlan 720
-no shutdown
-
-
 interface GigabitEthernet0/0
 description Connection to SpringCore1
 ip address 10.150.127.5 255.255.255.252
@@ -148,6 +104,48 @@ interface GigabitEthernet0/1
 description Connection to SpringCore2
 ip address 10.150.127.9 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::9/64
+no shutdown
+
+interface GigabitEthernet0/2
+description Access port for PharmaPlus
+switchport mode access
+switchport access vlan 115
+no shutdown
+
+interface GigabitEthernet0/3
+description Access port for DynaLabs
+switchport mode access
+switchport access vlan 115
+no shutdown
+
+interface GigabitEthernet1/0
+description Access port for Reception
+switchport mode access
+switchport access vlan 125
+no shutdown
+
+interface GigabitEthernet1/1
+description Access port for Reception
+switchport mode access
+switchport access vlan 135
+no shutdown
+
+interface GigabitEthernet1/2
+description Access port for Facilities
+switchport mode access
+switchport access vlan 145
+no shutdown
+
+interface GigabitEthernet1/3
+description Access port for Visitor1
+switchport mode access
+switchport access vlan 155
+no shutdown
+
+interface GigabitEthernet2/0
+description Access port for IT
+switchport mode access
+switchport access vlan 720
 no shutdown
 
 # Add BPDU guards
