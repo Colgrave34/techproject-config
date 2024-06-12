@@ -94,18 +94,6 @@ no shut
 
 
 #Assign vlans to ports 
-interface GigabitEthernet0/0
-description Connection to SpringCore1
-ip address 10.150.127.5 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::5/64
-no shutdown
-
-interface GigabitEthernet0/1
-description Connection to SpringCore2
-ip address 10.150.127.9 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::9/64
-no shutdown
-
 interface GigabitEthernet0/2
 description Access port for PharmaPlus
 switchport mode access
