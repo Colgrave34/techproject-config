@@ -80,37 +80,37 @@ ipv6 address 2001:bbfc:88ef:120::1/64
 no shutdown
 
 # Configure access ports
-interface range GigabitEthernet0/2-22
+interface GigabitEthernet0/2
 description Access port for Physicians
 switchport mode access
 switchport access vlan 200
 no shutdown
 
-interface range GigabitEthernet0/23-35
+interface GigabitEthernet0/3
 description Access port for ChildrensHealth
 switchport mode access
 switchport access vlan 205
 no shutdown
 
-interface range GigabitEthernet0/36-56
+interface GigabitEthernet1/0
 description Access port for CoolidgeLab
 switchport mode access
 switchport access vlan 210
 no shutdown
 
-interface range GigabitEthernet0/57-71
+interface GigabitEthernet1/1
 description Access port for MassageSpa
 switchport mode access
 switchport access vlan 215
 no shutdown
 
-interface range GigabitEthernet0/97
+interface GigabitEthernet1/2
 description Access port for Visitor2
 switchport mode access
 switchport access vlan 220
 no shutdown
 
-interface range GigabitEthernet0/84-96
+interface GigabitEthernet1/3
 description Access port for IT
 switchport mode access
 switchport access vlan 720
