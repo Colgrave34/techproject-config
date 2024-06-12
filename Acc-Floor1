@@ -1,0 +1,154 @@
+# Basic Config
+enable
+config t
+hostname Acc-Floor1
+enable secret Windows1
+line console 0
+password Windows1
+login
+line vty 0 15
+password Windows1
+login
+exit
+banner motd #Authorized Access Only!#
+exit
+clock timezone EST -5
+sdm prefer dual-ipv4-and-ipv6 default
+
+# VLAN
+vlan 105
+name PharmaPlus 
+vlan 115 
+name DynaLabs
+vlan 125
+name Reception
+vlan 135
+name Security
+vlan 145
+name Facilities
+vlan 155
+name Visitor1
+vlan 720
+name IT
+vlan 999
+Name Native 
+
+
+# Trunk Config
+int 0/0
+switchport mode dynamic auto
+description Trunk link to SpringCore1
+switchport native vlan 999
+switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 999
+int 0/1
+switchport mode dynamic auto
+description Trunk link to SpringCore2
+switchport native vlan 999
+switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 999
+
+
+# IP Address
+Int vlan 105
+ip address 10.150.8.0 255.255.255.0
+ipv6 address 2001:bbfc:88ef:8::/64
+description PharmaPlus VLAN
+no shut
+
+# VLAN Config
+int vlan 115
+ip address 10.150.12.1 255.255.255.0
+ipv6 address 2001:bbfc:88ef:12::/64
+description DynaLabs VLAN
+no shut
+
+int vlan 125
+ip address 10.150.16.1 255.255.255.0
+ipv6 address 2001:bbfc:88ef:16::/64
+description Reception VLAN
+no shut
+
+int  vlan 135
+ip address 10.150.20.1 255.255.255.0
+ipv6 address 2001:bbfc:88ef:20::/64
+description Security VLAN
+no shut
+
+Int vlan 145
+ip address 10.150.24.1 255.255.255.0
+ipv6 address 2001:bbfc:88ef:24::/64
+description Facility VLAN
+no shut
+
+int vlan 155
+ip address 10.150.28.1 255.255.255.0
+ipv6 address 2001:bbfc:88ef:28::/64
+description Visitor1 VLAN
+no shut
+
+int vlan 720
+ip address 10.150.120.1 255.255.255.0
+ipv6 address 2001:bbfc:88ef:120::/64
+description IT VLAN
+no shut
+
+
+
+#Assign vlans to ports 
+
+interface range GigabitEthernet0/2-22
+description Access port for PharmaPlus
+switchport mode access
+switchport access vlan 115
+no shutdown
+
+interface range GigabitEthernet0/23-41
+description Access port for DynaLabs
+switchport mode access
+switchport access vlan 115
+no shutdown
+
+interface range GigabitEthernet0/42-45
+description Access port for Reception
+switchport mode access
+switchport access vlan 125
+no shutdown
+
+interface range GigabitEthernet0/46-48
+description Access port for Reception
+switchport mode access
+switchport access vlan 135
+no shutdown
+
+interface range GigabitEthernet0/49-51
+description Access port for Facilities
+switchport mode access
+switchport access vlan 145
+no shutdown
+
+interface GigabitEthernet58
+description Access port for Visitor1
+switchport mode access
+switchport access vlan 155
+no shutdown
+
+interface range GigabitEthernet0/52-57
+description Access port for IT
+switchport mode access
+switchport access vlan 720
+no shutdown
+
+
+interface GigabitEthernet0/0
+description Connection to SpringCore1
+ip address 10.150.127.5 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::5/64
+no shutdown
+
+interface GigabitEthernet0/1
+description Connection to SpringCore2
+ip address 10.150.127.9 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::9/64
+no shutdown
+
+# Add BPDU guards
+# Port fast

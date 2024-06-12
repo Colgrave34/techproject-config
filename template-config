@@ -1,0 +1,29 @@
+# Basic Config
+enable
+config t
+hostname <hostname>
+enable secret Windows1
+line console 0
+password Windows1
+login
+line vty 0 15
+password Windows1
+login
+exit
+banner motd #Authorized Access Only!#
+exit
+clock timezone EST -5
+sdm prefer dual-ipv4-and-ipv6 default
+
+# VLAN
+vlan <vlan-id>
+name <vlan-name>
+
+# IP Address
+int <interface>
+switchport mode access
+switchport access vlan <vlan-id>
+ip address <ipv4> <subnet>
+ipv6 address <ipv6>
+description <>
+no shut

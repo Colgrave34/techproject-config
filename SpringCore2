@@ -1,0 +1,105 @@
+# Basic Config
+enable
+config t
+hostname SpringCore2
+enable secret Windows1
+line console 0
+password Windows1
+login
+line vty 0 15
+password Windows1
+login
+exit
+banner motd #Authorized Access Only!#
+exit
+clock timezone EST -5
+sdm prefer dual-ipv4-and-ipv6 default
+
+# VLAN
+vlan 990
+name DataCenter 
+Vlan 999
+Name Native
+vlan 720
+name IT
+vlan 105
+name PharmaPlus 
+vlan 115 
+name DynaLabs
+vlan 125
+name Reception
+vlan 135
+name Security
+vlan 145
+name Facilities
+vlan 155
+name Visitor1
+vlan 200
+name Physicians
+vlan 205
+name ChildrensHealth
+vlan 210
+name CoolidgeLab
+vlan 215
+name MassageSpa
+vlan 220
+name Visitor2
+vlan 305
+ name Allergist
+vlan 310
+ name Physiotherapy
+vlan 315
+ name DentalOffice
+vlan 320
+ name ENT
+vlan 325
+ name Visitor3
+
+
+# Trunk Config
+int 0/0
+switchport mode dynamic desirable
+description Trunk link to Floor1-Acc1
+switchport native vlan 999
+switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 999
+int 0/1
+switchport mode dynamic desirable
+description Trunk link to Floor2-Acc1
+switchport native vlan 999
+switchport trunk allowed vlan 200, 205, 210, 215, 220, 720, 999
+int 0/2
+switchport mode dynamic desirable
+description Trunk link to Floor3-Acc1
+switchport native vlan 999
+switchport trunk allowed vlan 305, 310, 315, 320, 325, 720, 999
+int 0/3
+switchport mode dynamic desirable
+description Trunk link to DataCenter
+switchport native vlan 999
+switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 200, 205, 210, 215, 220, 720, 305, 310, 315, 320, 325, 999
+int 1/0
+switchport mode dynamic desirable
+description Trunk link to DataCenter
+switchport native vlan 999
+switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 200, 205, 210, 215, 220, 720, 305, 310, 315, 320, 325, 999
+
+# IP Address
+Int 1/1
+ip address 10.150.127.22 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::22/64
+description SprintCore2 to SpringCore1
+no shut
+Int 1/2
+ip address 10.150.127.10 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::10/64
+description SpringCore2 to SpringR1
+no shut
+int 1/3
+ip address 10.150.127.18 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::18/64
+description SpringCore2 to SpringR2
+no shut
+
+# Add BPDU guards
+# Port fast
+

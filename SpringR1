@@ -1,0 +1,41 @@
+# Basic Config
+enable
+config t
+hostname SpringR1
+enable secret Windows1
+line console 0
+password Windows1
+login
+line vty 0 15
+password Windows1
+login
+exit
+banner motd #Authorized Access Only!#
+exit
+clock timezone EST -5
+sdm prefer dual-ipv4-and-ipv6 default
+
+# IP Address
+int 0/3
+ip address dhcp
+ipv6 address dhcp
+description SpringR1 to ISP
+no shut
+
+int 0/0
+ip address 10.150.127.5 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::5/64
+description SpringR1 to SpringCore1
+no shut
+
+int 0/1
+ip address 10.150.127.9 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::9/64
+description SpringR1 to SpringCore2
+no shut
+
+int 0/2
+ip address 10.150.127.1 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::1/64
+description SpringR1 to SpringR2
+no shut

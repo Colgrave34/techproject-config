@@ -1,0 +1,119 @@
+# Basic Config
+enable
+configure terminal
+hostname Acc-Floor3
+enable secret Windows1
+line console 0
+ password Windows1
+ login
+line vty 0 15
+ password Windows1
+ login
+exit
+banner motd #Authorized Access Only!#
+clock timezone EST -5
+sdm prefer dual-ipv4-and-ipv6 default
+
+# VLAN
+vlan 305
+ name Allergist
+vlan 310
+ name Physiotherapy
+vlan 315
+ name DentalOffice
+vlan 320
+ name ENT
+vlan 325
+ name Visitor3
+vlan 720
+ name IT
+vlan 999
+Name Native
+
+# Trunk Config
+int 0/0
+switchport mode dynamic auto
+description Trunk link to SpringCore1
+switchport native vlan 999
+switchport trunk allowed vlan 305, 310, 315, 320, 325, 720, 999
+int 0/1
+switchport mode dynamic auto
+description Trunk link to SpringCore2
+switchport native vlan 999
+switchport trunk allowed vlan 305, 310, 315, 320, 325, 720, 999
+
+# Configure VLAN interfaces
+interface vlan305
+ description VLAN for Allergist
+ ip address 10.150.80.1 255.255.255.0
+ ipv6 address 2001:bbfc:88ef:80::1/64
+ no shutdown
+
+interface vlan310
+ description VLAN for Physiotherapy
+ ip address 10.150.84.1 255.255.255.0
+ ipv6 address 2001:bbfc:88ef:84::1/64
+ no shutdown
+
+interface vlan315
+ description VLAN for DentalOffice
+ ip address 10.150.88.1 255.255.255.0
+ ipv6 address 2001:bbfc:88ef:88::1/64
+ no shutdown
+
+interface vlan320
+ description VLAN for ENT
+ ip address 10.150.92.1 255.255.255.0
+ ipv6 address 2001:bbfc:88ef:92::1/64
+ no shutdown
+
+interface vlan325
+ description VLAN for Visitor3
+ ip address 10.150.96.1 255.255.255.0
+ ipv6 address 2001:bbfc:88ef:96::1/64
+ no shutdown
+
+interface vlan720
+ description VLAN for IT
+ ip address 10.150.120.1 255.255.255.0
+ ipv6 address 2001:bbfc:88ef:120::1/64
+ no shutdown
+
+# Configure access ports
+interface range GigabitEthernet0/2-22
+ description Access port for Allergist
+ switchport mode access
+ switchport access vlan 305
+ no shutdown
+
+interface range GigabitEthernet0/23-35
+ description Access port for Physiotherapy
+ switchport mode access
+ switchport access vlan 310
+ no shutdown
+
+interface range GigabitEthernet0/36-56
+ description Access port for DentalOffice
+ switchport mode access
+ switchport access vlan 315
+ no shutdown
+
+interface range GigabitEthernet0/57-71
+ description Access port for ENT
+ switchport mode access
+ switchport access vlan 320
+ no shutdown
+
+interface range GigabitEthernet0/97
+description Access port for Visitor3
+switchport mode access
+switchport access vlan 325
+no shutdown
+
+interface range GigabitEthernet0/84-96
+description Access port for IT
+switchport mode access
+switchport access vlan 720
+no shutdown
+
+vtp mode transparent 
