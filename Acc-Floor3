@@ -104,7 +104,7 @@ interface range GigabitEthernet0/57-71
  switchport access vlan 320
  no shutdown
 
-interface range GigabitEthernet0/97
+interface GigabitEthernet0/97
 description Access port for Visitor3
 switchport mode access
 switchport access vlan 325
