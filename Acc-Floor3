@@ -86,31 +86,31 @@ interface GigabitEthernet0/2
  switchport access vlan 305
  no shutdown
 
-interface range GigabitEthernet0/23-35
+interface GigabitEthernet0/3
  description Access port for Physiotherapy
  switchport mode access
  switchport access vlan 310
  no shutdown
 
-interface range GigabitEthernet0/36-56
+interface GigabitEthernet1/0
  description Access port for DentalOffice
  switchport mode access
  switchport access vlan 315
  no shutdown
 
-interface range GigabitEthernet0/57-71
+interface GigabitEthernet1/1
  description Access port for ENT
  switchport mode access
  switchport access vlan 320
  no shutdown
 
-interface GigabitEthernet0/97
+interface GigabitEthernet1/2
 description Access port for Visitor3
 switchport mode access
 switchport access vlan 325
 no shutdown
 
-interface range GigabitEthernet0/84-96
+interface GigabitEthernet1/3
 description Access port for IT
 switchport mode access
 switchport access vlan 720
