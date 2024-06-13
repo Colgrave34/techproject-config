@@ -108,18 +108,14 @@ switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
 
 # EtherChannel Config
 int g0/3
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport nonegotiate
 channel-group 1 mode active
-shut
+no shut
+exit
 
 int g1/0
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport nonegotiate
 channel-group 1 mode active
-shut
+no shut
+exit
 
 int port-channel 1
 description EtherChannel1 DataCenter
