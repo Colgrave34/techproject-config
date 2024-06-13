@@ -11,8 +11,9 @@ password Windows1
 login
 exit
 banner motd #Authorized Access Only!#
-exit
 clock timezone EST -5
+exit
+
 sdm prefer dual-ipv4-and-ipv6 default
 
 # VLAN
@@ -56,33 +57,34 @@ vlan 325
  name Visitor3
 
 
+
+#change this
 # Trunk Config
 int g0/0
 switchport mode dynamic desirable
 description Trunk link to Floor1-Acc1
-switchport native vlan 999
-switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 999
+switchport trunk native vlan 999
+switchport trunk allowed vlan 105,115,125,135,145,155,720,999
 int g0/1
 switchport mode dynamic desirable
 description Trunk link to Floor2-Acc1
-switchport native vlan 999
-switchport trunk allowed vlan 200, 205, 210, 215, 220, 720, 999
+switchport trunk native vlan 999
+switchport trunk allowed vlan 200,205,210,215,220,720,999
 int g0/2
 switchport mode dynamic desirable
 description Trunk link to Floor3-Acc1
-switchport native vlan 999
-switchport trunk allowed vlan 305, 310, 315, 320, 325, 720, 999
+switchport trunk native vlan 999
+switchport trunk allowed vlan 305,310,315,320,325,720,999
 int g0/3
 switchport mode dynamic desirable
 description Trunk link to DataCenter
-switchport native vlan 999
-switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 200, 205, 210, 215, 220, 720, 305, 310, 315, 320, 325, 999
+switchport trunk native vlan 999
+switchport trunk allowed vlan 105,115,125,135,145,155,200,205,210,215,220,720,305,310,315,320,325,999
 int g1/0
 switchport mode dynamic desirable
 description Trunk link to DataCenter
-switchport native vlan 999
-switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 200, 205, 210, 215, 220, 720, 305, 310, 315, 320, 325, 999
-
+switchport trunk native vlan 999
+switchport trunk allowed vlan 105,115,125,135,145,155,200,205,210,215,220,720,305,310,315,320,325,999
 # IP Address
 int g1/1
 no switchport 
