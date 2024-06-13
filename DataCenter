@@ -70,6 +70,11 @@ switchport mode access
 switchport access vlan 990
 no shut
 
+# Enable Spanning Tree and BPDU Guard
+int range g3/2-3
+spanning-tree portfast
+spanning-tree bpduguard en
+
 # Trunk Config
 int range g0/0-1
 channel-group 1 mode active
