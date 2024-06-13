@@ -1,6 +1,6 @@
 # Basic Config
-enable
-config t
+en
+conf t
 hostname SpringCore1
 enable secret Windows1
 line console 0
@@ -9,19 +9,33 @@ login
 line vty 0 15
 password Windows1
 login
-exit
-banner motd #Authorized Access Only!#
-exit
+service password-encryption
+no ip domain-lookup
 clock timezone EST -5
+banner motd #Authorized Access Only!#
 sdm prefer dual-ipv4-and-ipv6 default
 
+# Enable VTP mode to Transparent
+vtp mode transparent
+
+# IP Address
+int 1/1
+ip address 10.150.127.21 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::21/64
+description SprintCore1 to SpringCore2
+no shut
+Int 1/2
+ip address 10.150.127.14 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::14/64
+description SpringCore1 to SpringR2
+no shut
+int 1/3
+ip address 10.150.127.6 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::6/64
+description SpringCore1 to SpringR1
+no shut
+
 # VLAN
-vlan 990
-name DataCenter 
-Vlan 999
-Name Native
-vlan 720
-name IT
 vlan 105
 name PharmaPlus 
 vlan 115 
@@ -45,61 +59,60 @@ name MassageSpa
 vlan 220
 name Visitor2
 vlan 305
- name Allergist
+name Allergist
 vlan 310
- name Physiotherapy
+name Physiotherapy
 vlan 315
- name DentalOffice
+name DentalOffice
 vlan 320
- name ENT
+name ENT
 vlan 325
- name Visitor3
+name Visitor3
+vlan 720
+name IT
+vlan 990
+name DataCenter 
+Vlan 999
+name Native
 
+# Enable Spanning Tree and BPDU Guard
+int range g0/0-3, 1/0
+spanning-tree portfast
+spanning-tree bpduguard en
 
 # Trunk Config
 int 0/0
-switchport mode dynamic desirable
 description Trunk link to Floor1-Acc1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
 switchport native vlan 999
-switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 999
+switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
 int 0/1
-switchport mode dynamic desirable
 description Trunk link to Floor2-Acc1
+switchport trunk encapsulation dot1q
+switchport mode dynamic desirable
+switchport nonegotiate
 switchport native vlan 999
-switchport trunk allowed vlan 200, 205, 210, 215, 220, 720, 999
+switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
 int 0/2
-switchport mode dynamic desirable
 description Trunk link to Floor3-Acc1
+switchport trunk encapsulation dot1q
+switchport mode dynamic desirable
+switchport nonegotiate
 switchport native vlan 999
-switchport trunk allowed vlan 305, 310, 315, 320, 325, 720, 999
+switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
 int 0/3
+description EtherChannel1 DataCenter
+switchport trunk encapsulation dot1q
 switchport mode dynamic desirable
-description Trunk link to DataCenter
+switchport nonegotiate
 switchport native vlan 999
-switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 200, 205, 210, 215, 220, 720, 305, 310, 315, 320, 325, 999
+switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
 int 1/0
+description EtherChannel2 to DataCenter
+switchport trunk encapsulation dot1q
 switchport mode dynamic desirable
-description Trunk link to DataCenter
+switchport nonegotiate
 switchport native vlan 999
-switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 200, 205, 210, 215, 220, 720, 305, 310, 315, 320, 325, 999
-
-# IP Address
-Int 1/1
-ip address 10.150.127.21 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::21/64
-description SprintCore1 to SpringCore2
-no shut
-Int 1/2
-ip address 10.150.127.14 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::14/64
-description SpringCore1 to SpringR2
-no shut
-int 1/3
-ip address 10.150.127.6 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::6/64
-description SpringCore1 to SpringR1
-no shut
-
-# Add BPDU guards
-# Port fast
-
+switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999

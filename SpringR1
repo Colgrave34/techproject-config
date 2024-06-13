@@ -1,6 +1,6 @@
 # Basic Config
-enable
-config t
+en
+conf t
 hostname SpringR1
 enable secret Windows1
 line console 0
@@ -9,32 +9,29 @@ login
 line vty 0 15
 password Windows1
 login
-exit
-banner motd #Authorized Access Only!#
-exit
+service password-encryption
+no ip domain-lookup
 clock timezone EST -5
+banner motd #Authorized Access Only!#
 sdm prefer dual-ipv4-and-ipv6 default
 
 # IP Address
-int GigabitEthernet0/3
+int g0/3
+description SpringR1 to ISP
 ip address dhcp
 ipv6 address dhcp
-description SpringR1 to ISP
 no shut
-
-int GigabitEthernet0/0
+int g0/0
+description SpringR1 to SpringCore1
 ip address 10.150.127.5 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::5/64
-description SpringR1 to SpringCore1
 no shut
-
-int GigabitEthernet0/1
+int g0/1
+description SpringR1 to SpringCore2
 ip address 10.150.127.9 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::9/64
-description SpringR1 to SpringCore2
 no shut
-
-int GigabitEthernet0/2
+int g0/2
 ip address 10.150.127.1 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::1/64
 description SpringR1 to SpringR2
