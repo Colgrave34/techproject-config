@@ -24,7 +24,7 @@ ip address 10.150.127.21 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::21/64
 description SprintCore1 to SpringCore2
 no shut
-Int 1/2
+int 1/2
 ip address 10.150.127.14 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::14/64
 description SpringCore1 to SpringR2
@@ -91,28 +91,111 @@ switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
 int 0/1
 description Trunk link to Floor2-Acc1
 switchport trunk encapsulation dot1q
-switchport mode dynamic desirable
+switchport mode trunk
 switchport nonegotiate
 switchport native vlan 999
 switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
 int 0/2
 description Trunk link to Floor3-Acc1
 switchport trunk encapsulation dot1q
-switchport mode dynamic desirable
+switchport mode trunk
 switchport nonegotiate
 switchport native vlan 999
 switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
+
+# EtherChannel Config
 int 0/3
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+channel-group 1 mode active
+shut
+
+int 1/0
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+channel-group 1 mode active
+shut
+
+int port-channel 1
 description EtherChannel1 DataCenter
 switchport trunk encapsulation dot1q
-switchport mode dynamic desirable
+switchport mode trunk
 switchport nonegotiate
-switchport native vlan 999
+switchport trunk native vlan 999
 switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
-int 1/0
-description EtherChannel2 to DataCenter
-switchport trunk encapsulation dot1q
-switchport mode dynamic desirable
-switchport nonegotiate
-switchport native vlan 999
-switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
+
+int vlan 105
+description PharmaPlus
+ip address 10.150.8.2 255.255.255.0
+ip helper-address 10.150.90.12
+int vlan 115
+Description DynaLabs
+ip address 10.150.12.2 255.255.255.0
+ip helper-address 10.150.90.12
+int vlan 125
+Description Reception
+ip address 10.150.16.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 135
+Description Security
+ip address 10.150.20.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 145
+Description Facilities
+ip address 10.150.24.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 155
+Description Visitor1
+ip address 10.150.28.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 200
+Description Physicians
+ip address 10.150.44.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 205
+description Childrens Health
+ip address 10.150.48.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 210
+Description CoolidgeLab
+ip address 10.150.52.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 215
+Description MassageSpa
+ip address 10.150.56.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 220
+description Visitor2
+ip address 10.150.60.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 305
+Description Allergist
+ip address 10.150.80.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 310
+Description Physiotherapy
+ip address 10.150.84.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 315
+Description DentalOffice
+ip address 10.150.88.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 320
+Description ENT
+ip address 10.150.92.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 325
+Description Visitor3
+ip address 10.150.96.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 720
+Description IT
+ip address 10.150.120.2 255.255.255.0
+ip helper-address 10.150.90.12
+interface vlan 990
+Description DataCenter
+ip address 10.150.0.2 255.255.255.0
+ip helper-address 10.150.90.12
+

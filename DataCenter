@@ -80,8 +80,8 @@ int range g0/0-1
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport nonegotiate
-shut
 channel-group 1 mode active
+shut
 int port-channel 1
 description EtherChannel link to SpringCore1
 switchport trunk encapsulation dot1q
@@ -95,8 +95,8 @@ int range g0/2-3
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport nonegotiate
-shut
 channel-group 2 mode active
+shut
 int port-channel 2
 description EtherChannel link to SpringCore2
 switchport trunk encapsulation dot1q
