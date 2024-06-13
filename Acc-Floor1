@@ -10,8 +10,8 @@ line vty 0 15
 password Windows1
 login
 clock timezone EST -5
-exit
 banner motd #Authorized Access Only!#
+sdm prefer dual-ipv4-and-ipv6 default
 
 # VLAN
 vlan 105
