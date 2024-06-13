@@ -64,12 +64,12 @@ description Access port for Visitor1
 switchport mode access
 switchport access vlan 155
 no shut
-int g2/0
+int g3/2
 description Access port for IT
 switchport mode access
 switchport access vlan 720
 no shut
-int g2/1
+int g3/3
 description Access port for DataCenter
 switchport mode access
 switchport access vlan 990
