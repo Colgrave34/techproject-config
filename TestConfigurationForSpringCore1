@@ -1,0 +1,284 @@
+!Base Config
+!
+en
+conf t
+service password-encryption
+ip routing
+ipv6 unicast-routing
+!
+hostname SpringCore1
+!
+enable secret class
+!
+no IP domain-lookup
+!
+banner motd #Authorized Access Only#
+ip default-gateway 10.150.120.1
+!
+line con 0
+logging sync
+password cisco
+login
+!
+line vty 0 15
+!transport input ssh
+password cisco
+login
+!
+!
+!
+!Interface Address
+interface G1/1
+No switchport
+ip address 10.150.127.5 255.255.255.252
+!Ipv6 address 2001:bbfc:88ef:ffff::5/64
+no shut
+exit
+
+interface G1/2
+No switchport
+ip address 10.150.127.9 255.255.255.252
+!Ipv6 address 2001:bbfc:88ef:ffff::9/64
+no shut
+exit
+
+interface G1/3
+No switchport
+ip address 10.150.127.13 255.255.255.252
+!ipv6 address 2001:bbfc:88ef:ffff::13/64
+no shut
+exit
+!
+!
+!Remove VLAN 1
+Int vlan 1
+No ip address
+Shutdown
+exit
+!
+!VLAN Creation
+!
+vlan 105
+name PharmaPlus
+!
+vlan 115
+name DynaLabs
+!
+vlan 125
+name Reception
+!
+vlan 135
+name Security
+!
+vlan 145
+name Facilities
+!
+vlan 155
+name Visitor1
+!
+vlan 200
+name Physicians
+!
+vlan 205
+name ChildrensHealth
+!
+vlan 210
+name CoolidgeLab
+!
+vlan 215
+name MassageSpa
+!
+vlan 220
+name Visitor2
+!
+vlan 305
+name Allergist
+!
+vlan 310
+name Physiotherapy
+!
+vlan 315
+name DentalOffice
+!
+vlan 320
+name ENT
+!
+vlan 325
+name Visitor3
+!
+vlan 720
+name IT
+!
+vlan 990
+name DataCenter
+exit
+!
+!VLAN Address Assignment
+interface vlan 105
+description PharmaPlus DG
+ip address 10.150.8.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 115
+description DynaLabs DG
+ip address 10.150.12.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 125
+description Reception DG
+ip address 10.150.16.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 135
+description Security DG
+ip address 10.150.20.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 145
+description Facilities DG
+ip address 10.150.24.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 155
+description Visitor1 DG
+ip address 10.150.28.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 200
+description Physicians DG
+ip address 10.150.44.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 205
+description ChildrensHealth DG
+ip address 10.150.48.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 210
+description CoolidgeLab DG
+ip address 10.150.52.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 215
+description MassageSpa DG
+ip address 10.150.56.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 220
+description Visitor2 DG
+ip address 10.150.60.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 305
+description Allergist DG
+ip address 10.150.80.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 310
+description Physiotherapy DG
+ip address 10.150.84.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 315
+description DentalOffice DG
+ip address 10.150.88.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 320
+description ENT DG
+ip address 10.150.92.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 325
+description Visitor3 DG
+ip address 10.150.96.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 720
+description IT DG
+ip address 10.150.120.1 255.255.255.0
+ip helper-address 10.150.120.12
+!
+interface vlan 990
+description DataCenter DG
+ip address 10.150.0.1 255.255.255.0
+ip helper-address 10.150.120.12
+exit
+!
+!Before configuring into ether channel convert interfaces to trunk
+!     ETHERCHANNEL
+!LACP
+interface g0/3
+switchport mode trunk
+switchport nonegotiate
+shutdown
+channel-group 1 mode active
+no shut
+!
+interface g1/0
+switchport mode trunk
+switchport nonegotiate
+shutdown
+channel-group 1 mode active
+no shut
+!
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 105,115,125,135,145,155,200,205,210,215,220,305,310,315,320,325,720,990
+exit
+!
+!Set the router ID (change router ID)* Highest Address wins
+router ospf 15
+router-id 11.0.0.1
+!If you need to modify the router ID just re enter the command below and use the one below
+!clear ip ospf process
+!y
+! /24
+network 10.150.8.0 255.255.255.0 area 0
+!
+network 10.150.12.0 255.255.255.0 area 0
+!
+network 10.150.16.0 255.255.255.0 area 0
+!
+network 10.150.20.0 255.255.255.0 area 0
+!
+network 10.150.24.0 255.255.255.0 area 0
+!
+network 10.150.28.0 255.255.255.0 area 0
+!
+network 10.150.44.0 255.255.255.0 area 0
+!
+network 10.150.48.0 255.255.255.0 area 0
+!
+network 10.150.52.0 255.255.255.0 area 0
+!
+network 10.150.56.0 255.255.255.0 area 0
+!
+network 10.150.60.0 255.255.255.0 area 0
+!
+network 10.150.80.0 255.255.255.0 area 0
+!
+network 10.150.84.0 255.255.255.0 area 0
+!
+network 10.150.88.0 255.255.255.0 area 0
+!
+network 10.150.92.0 255.255.255.0 area 0
+!
+network 10.150.96.0 255.255.255.0 area 0
+!
+network 10.150.120.0 255.255.255.0 area 0
+!
+network 10.150.0.0 255.255.255.0 area 0
+!/30
+network 10.150.127.0 255.255.255.252 area 0
+!
+network 10.150.127.4 255.255.255.252 area 0
+!
+network 10.150.127.8 255.255.255.252 area 0
+!
+network 10.150.127.12 255.255.255.252 area 0
+!
+network 10.150.127.16 255.255.255.252 area 0
+!
+network 10.150.127.20 255.255.255.252 area 0
+exit
