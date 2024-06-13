@@ -106,14 +106,14 @@ switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport nonegotiate
 switchport trunk native vlan 999
-switchport trunk allowed vlan 200,205,210,215,220,720,999
+switchport trunk allowed vlan 200,205,210,215,220,720,990,999
 int g0/2
 description Trunk link to Floor3-Acc1
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport nonegotiate
 switchport trunk native vlan 999
-switchport trunk allowed vlan 305,310,315,320,325,720,999
+switchport trunk allowed vlan 305,310,315,320,325,720,990,999
 
 # Enable Spanning Tree and BPDU Guard
 int range g0/0-3, g1/0
