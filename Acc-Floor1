@@ -29,6 +29,8 @@ vlan 155
 name Visitor1
 vlan 720
 name IT
+vlan 990
+name DataCenter
 vlan 999
 Name Native 
 
@@ -37,12 +39,12 @@ int 0/0
 switchport mode dynamic auto
 description Trunk link to SpringCore1
 switchport native vlan 999
-switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 999
+switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 990,999
 int 0/1
 switchport mode dynamic auto
 description Trunk link to SpringCore2
 switchport native vlan 999
-switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 999
+switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 990,999
 
 # VLAN Config
 int vlan 115
