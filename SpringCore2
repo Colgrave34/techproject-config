@@ -21,19 +21,19 @@ int g1/1
 description SprintCore2 to SpringCore1
 no switchport 
 ip address 10.150.127.22 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::22/64
+#ipv6 address 2001:bbfc:88ef:ffff::22/64
 no shut
 int g1/2
 description SpringCore2 to SpringR1
 no switchport 
 ip address 10.150.127.10 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::10/64
+#ipv6 address 2001:bbfc:88ef:ffff::10/64
 no shut
 int g1/3
 description SpringCore2 to SpringR2
 no switchport
 ip address 10.150.127.18 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::18/64
+#ipv6 address 2001:bbfc:88ef:ffff::18/64
 no shut
 
 # VLAN

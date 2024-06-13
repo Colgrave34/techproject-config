@@ -24,16 +24,16 @@ no shut
 int g0/0
 description SpringR1 to SpringCore1
 ip address 10.150.127.5 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::5/64
+#ipv6 address 2001:bbfc:88ef:ffff::5/64
 no shut
 int g0/1
 description SpringR1 to SpringCore2
 ip address 10.150.127.9 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::9/64
+#ipv6 address 2001:bbfc:88ef:ffff::9/64
 no shut
 int g0/2
 ip address 10.150.127.1 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::1/64
+#ipv6 address 2001:bbfc:88ef:ffff::1/64
 description SpringR1 to SpringR2
 no shut
 
