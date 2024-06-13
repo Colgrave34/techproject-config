@@ -1,7 +1,7 @@
 # Basic Config
 en
 conf t
-hostname Acc-Floor1
+hostname Acc-Floor2
 enable secret Windows1
 line console 0
 password Windows1
