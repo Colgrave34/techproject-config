@@ -1,126 +1,94 @@
 # Basic Config
-enable
-configure terminal
-hostname Acc-Floor3
+en
+conf t
+hostname Acc-Floor1
 enable secret Windows1
 line console 0
- password Windows1
- login
+password Windows1
+login
 line vty 0 15
- password Windows1
- login
-exit
-banner motd #Authorized Access Only!#
+password Windows1
+login
+no ip domain-lookup
 clock timezone EST -5
+banner motd #Authorized Access Only!#
 sdm prefer dual-ipv4-and-ipv6 default
+
+# Enable VTP mode to Transparent
+vtp mode transparent
 
 # VLAN
 vlan 305
- name Allergist
+name Allergist
 vlan 310
- name Physiotherapy
+name Physiotherapy
 vlan 315
- name DentalOffice
+name DentalOffice
 vlan 320
- name ENT
+name ENT
 vlan 325
- name Visitor3
+name Visitor3
 vlan 720
- name IT
+name IT
+vlan 990
+name DataCenter
 vlan 999
-Name Native
+name Native
 
-# Trunk Config
-int 0/0
-switchport mode dynamic auto
-description Trunk link to SpringCore1
-switchport native vlan 999
-switchport trunk allowed vlan 305, 310, 315, 320, 325, 720, 999
-int 0/1
-switchport mode dynamic auto
-description Trunk link to SpringCore2
-switchport native vlan 999
-switchport trunk allowed vlan 305, 310, 315, 320, 325, 720, 999
-
-# Configure VLAN interfaces
-interface vlan305
- description VLAN for Allergist
- ip address 10.150.80.1 255.255.255.0
- ipv6 address 2001:bbfc:88ef:80::1/64
- no shutdown
-
-interface vlan310
- description VLAN for Physiotherapy
- ip address 10.150.84.1 255.255.255.0
- ipv6 address 2001:bbfc:88ef:84::1/64
- no shutdown
-
-interface vlan315
- description VLAN for DentalOffice
- ip address 10.150.88.1 255.255.255.0
- ipv6 address 2001:bbfc:88ef:88::1/64
- no shutdown
-
-interface vlan320
- description VLAN for ENT
- ip address 10.150.92.1 255.255.255.0
- ipv6 address 2001:bbfc:88ef:92::1/64
- no shutdown
-
-interface vlan325
- description VLAN for Visitor3
- ip address 10.150.96.1 255.255.255.0
- ipv6 address 2001:bbfc:88ef:96::1/64
- no shutdown
-
-interface vlan720
- description VLAN for IT
- ip address 10.150.120.1 255.255.255.0
- ipv6 address 2001:bbfc:88ef:120::1/64
- no shutdown
-
-# Configure access ports
-interface GigabitEthernet0/2
- description Access port for Allergist
- switchport mode access
- switchport access vlan 305
- no shutdown
-
-interface GigabitEthernet0/3
- description Access port for Physiotherapy
- switchport mode access
- switchport access vlan 310
- no shutdown
-
-interface GigabitEthernet1/0
- description Access port for DentalOffice
- switchport mode access
- switchport access vlan 315
- no shutdown
-
-interface GigabitEthernet1/1
- description Access port for ENT
- switchport mode access
- switchport access vlan 320
- no shutdown
-
-interface GigabitEthernet1/2
+# Assign VLAN to Ports
+int g0/2
+description Access port for Allergist
+switchport mode access
+switchport access vlan 305
+no shut
+int g0/3
+description Access port for Physiotherapy
+switchport mode access
+switchport access vlan 310
+no shutdown
+int g1/0
+description Access port for DentalOffice
+switchport mode access
+switchport access vlan 315
+no shutdown
+int g1/1
+description Access port for ENT
+switchport mode access
+switchport access vlan 320
+no shut
+int g1/2
 description Access port for Visitor3
 switchport mode access
 switchport access vlan 325
-no shutdown
-
-interface GigabitEthernet1/3
+no shut
+int g3/2
 description Access port for IT
 switchport mode access
 switchport access vlan 720
-no shutdown
-
-vtp mode transparent
-
+no shut
+int g3/3
+description Access port for DataCenter
+switchport mode access
+switchport access vlan 990
+no shut
 
 # Spanning-tree 
-int range g0/0-3, g1/0-3, g2/0-3, g3/0-3, g4/0-3 
-spanning-tree portfast 
-enable bpdu guard 
-spanning-tree bpduguard enable 
+int range g0/2-3, g1/0-3, g3/2-3
+spanning-tree portfast
+spanning-tree bpduguard en
+
+# Trunk Config
+int g0/0
+description Trunk link to SpringCore1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk native vlan 999
+switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 990, 999
+int g0/1
+description Trunk link to SpringCore2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk native vlan 999
+switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 990, 999
