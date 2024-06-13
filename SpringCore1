@@ -19,17 +19,17 @@ sdm prefer dual-ipv4-and-ipv6 default
 vtp mode transparent
 
 # IP Address
-int 1/1
+int g1/1
 ip address 10.150.127.21 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::21/64
 description SprintCore1 to SpringCore2
 no shut
-int 1/2
+int g1/2
 ip address 10.150.127.14 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::14/64
 description SpringCore1 to SpringR2
 no shut
-int 1/3
+int g1/3
 ip address 10.150.127.6 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::6/64
 description SpringCore1 to SpringR1
@@ -81,21 +81,21 @@ spanning-tree portfast
 spanning-tree bpduguard en
 
 # Trunk Config
-int 0/0
+int g0/0
 description Trunk link to Floor1-Acc1
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport nonegotiate
 switchport native vlan 999
 switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
-int 0/1
+int g0/1
 description Trunk link to Floor2-Acc1
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport nonegotiate
 switchport native vlan 999
 switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
-int 0/2
+int g0/2
 description Trunk link to Floor3-Acc1
 switchport trunk encapsulation dot1q
 switchport mode trunk
@@ -104,14 +104,14 @@ switchport native vlan 999
 switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
 
 # EtherChannel Config
-int 0/3
+int g0/3
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport nonegotiate
 channel-group 1 mode active
 shut
 
-int 1/0
+int g1/0
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport nonegotiate
