@@ -16,22 +16,22 @@ banner motd #Authorized Access Only!#
 sdm prefer dual-ipv4-and-ipv6 default
 
 # Point-to-Point IP Interface
-int 0/3
+int g0/3
 ip address dhcp
 ipv6 address dhcp
 description SpringR2 to ISP
 no shut
-int 0/0
+int g0/0
 ip address 10.150.127.17 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::17/64
 description SpringR2 to SpringCore2
 no shut
-int 0/1
+int g0/1
 ip address 10.150.127.13 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::13/64
 description SpringR2 to SpringCore1
 no shut
-int 0/2
+int g0/2
 ip address 10.150.127.2 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::2/64
 description SpringR2 to SpringR1
