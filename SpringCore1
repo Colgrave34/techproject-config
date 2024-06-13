@@ -110,12 +110,9 @@ switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
 int g0/3
 channel-group 1 mode active
 no shut
-exit
-
 int g1/0
 channel-group 1 mode active
 no shut
-exit
 
 int port-channel 1
 description EtherChannel1 DataCenter
