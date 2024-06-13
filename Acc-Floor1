@@ -1,6 +1,6 @@
 # Basic Config
-enable
-config t
+en
+conf t
 hostname Acc-Floor1
 enable secret Windows1
 line console 0
@@ -11,7 +11,6 @@ password Windows1
 login
 exit
 banner motd #Authorized Access Only!#
-exit
 clock timezone EST -5
 sdm prefer dual-ipv4-and-ipv6 default
 
@@ -33,7 +32,6 @@ name IT
 vlan 999
 Name Native 
 
-
 # Trunk Config
 int 0/0
 switchport mode dynamic auto
@@ -46,93 +44,89 @@ description Trunk link to SpringCore2
 switchport native vlan 999
 switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 999
 
-
-# IP Address
-Int vlan 105
-ip address 10.150.8.1 255.255.255.0
-ipv6 address 2001:bbfc:88ef:8::/64
-description PharmaPlus VLAN
-no shut
-
 # VLAN Config
 int vlan 115
 ip address 10.150.12.1 255.255.255.0
 ipv6 address 2001:bbfc:88ef:12::/64
-description DynaLabs VLAN
+description DynaLabs
 no shut
 
 int vlan 125
 ip address 10.150.16.1 255.255.255.0
 ipv6 address 2001:bbfc:88ef:16::/64
-description Reception VLAN
+description Reception
 no shut
 
 int  vlan 135
 ip address 10.150.20.1 255.255.255.0
 ipv6 address 2001:bbfc:88ef:20::/64
-description Security VLAN
+description Security
 no shut
 
 Int vlan 145
 ip address 10.150.24.1 255.255.255.0
 ipv6 address 2001:bbfc:88ef:24::/64
-description Facility VLAN
+description Facility
 no shut
 
 int vlan 155
 ip address 10.150.28.1 255.255.255.0
 ipv6 address 2001:bbfc:88ef:28::/64
-description Visitor1 VLAN
+description Visitor1
 no shut
 
 int vlan 720
 ip address 10.150.120.1 255.255.255.0
 ipv6 address 2001:bbfc:88ef:120::/64
-description IT VLAN
+description IT
 no shut
 
-#Assign vlans to ports 
-interface GigabitEthernet0/2
+# Assign VLAN to Ports
+int g0/2
 description Access port for PharmaPlus
+spanning-tree portfast
 switchport mode access
 switchport access vlan 115
-no shutdown
+no shut
 
-interface GigabitEthernet0/3
+int g0/3
 description Access port for DynaLabs
+spanning-tree portfast
 switchport mode access
 switchport access vlan 115
-no shutdown
+no shut
 
-interface GigabitEthernet1/0
+int g1/0
 description Access port for Reception
+spanning-tree portfast
 switchport mode access
 switchport access vlan 125
-no shutdown
+no shut
 
-interface GigabitEthernet1/1
+int g1/1
 description Access port for Reception
+spanning-tree portfast
 switchport mode access
 switchport access vlan 135
-no shutdown
+no shut
 
-interface GigabitEthernet1/2
+int g1/2
 description Access port for Facilities
+spanning-tree portfast
 switchport mode access
 switchport access vlan 145
-no shutdown
+no shut
 
-interface GigabitEthernet1/3
+int g1/3
 description Access port for Visitor1
+spanning-tree portfast
 switchport mode access
 switchport access vlan 155
-no shutdown
+no shut
 
-interface GigabitEthernet2/0
+int g2/0
 description Access port for IT
+spanning-tree portfast
 switchport mode access
 switchport access vlan 720
-no shutdown
-
-# Add BPDU guards
-# Port fast
+no shut
