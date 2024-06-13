@@ -120,6 +120,7 @@ int range g0/0-3, g1/0
 spanning-tree portfast
 spanning-tree bpduguard en
 
+# Enable DHCP ip helper-address Config
 int vlan 105
 description PharmaPlus
 ip address 10.150.8.2 255.255.255.0

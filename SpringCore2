@@ -120,6 +120,7 @@ int range g0/0-3, g1/0
 spanning-tree portfast
 spanning-tree bpduguard en
 
+# Enable DHCP ip helper-address Config
 int vlan 105
 description PharmaPlus
 ip address 10.150.8.3 255.255.255.0
@@ -192,7 +193,6 @@ interface vlan 990
 Description DataCenter
 ip address 10.150.0.3 255.255.255.0
 ip helper-address 10.150.90.12
-
 
 # OSPF
 router ospf 15

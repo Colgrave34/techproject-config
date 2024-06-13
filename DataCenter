@@ -76,7 +76,7 @@ spanning-tree bpduguard en
 # Trunk & EtherChannel Config
 int range g0/0-1
 channel-group 1 mode active
-shut
+no shut
 int port-channel 1
 description EtherChannel link to SpringCore1
 switchport trunk encapsulation dot1q
