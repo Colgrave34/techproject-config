@@ -220,3 +220,10 @@ network 10.150.120.0 0.0.0.255 area 0
 network 10.150.127.4 0.0.0.3 area 0
 network 10.150.127.12 0.0.0.3 area 0
 network 10.150.127.20 0.0.0.3 area 0
+
+
+#some changes 
+spanning-tree vlan 105,115,125,135,145,155,200,205,210,215,220 priority 24576
+spanning-tree vlan 305,310,315,320,325,720,990,999 priority 28672
+
+
