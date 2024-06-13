@@ -13,7 +13,6 @@ clock timezone EST -5
 exit
 banner motd #Authorized Access Only!#
 
-sdm prefer dual-ipv4-and-ipv6 default
 
 # VLAN
 vlan 105
@@ -35,12 +34,58 @@ name DataCenter
 vlan 999
 Name Native 
 
+# Assign VLAN to Ports
+int g0/2
+description Access port for PharmaPlus
+switchport mode access
+switchport access vlan 115
+no shut
+
+int g0/3
+description Access port for DynaLabs
+switchport mode access
+switchport access vlan 115
+no shut
+
+int g1/0
+description Access port for Reception
+switchport mode access
+switchport access vlan 125
+no shut
+
+int g1/1
+description Access port for Reception
+switchport mode access
+switchport access vlan 135
+no shut
+
+int g1/2
+description Access port for Facilities
+switchport mode access
+switchport access vlan 145
+no shut
+
+int g1/3
+description Access port for Visitor1
+switchport mode access
+switchport access vlan 155
+no shut
+
+int g2/0
+description Access port for IT
+switchport mode access
+switchport access vlan 720
+no shut
+
+
+
 # Trunk Config
 int GigabitEthernet0/0
 switchport mode dynamic auto
 description Trunk link to SpringCore1
 switchport native vlan 999
 switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 990,999
+
 int GigabitEthernet0/1
 switchport mode dynamic auto
 description Trunk link to SpringCore2
@@ -84,52 +129,13 @@ ipv6 address 2001:bbfc:88ef:120::/64
 description IT
 no shut
 
-# Assign VLAN to Ports
-int g0/2
-description Access port for PharmaPlus
-spanning-tree portfast
-switchport mode access
-switchport access vlan 115
-no shut
 
-int g0/3
-description Access port for DynaLabs
-spanning-tree portfast
-switchport mode access
-switchport access vlan 115
-no shut
 
-int g1/0
-description Access port for Reception
-spanning-tree portfast
-switchport mode access
-switchport access vlan 125
-no shut
+# configuring port fast 
+ 
+int range g0/0-3, g1/0
+spanning-tree portfast 
+spanning-tree bpdu guard enable
 
-int g1/1
-description Access port for Reception
-spanning-tree portfast
-switchport mode access
-switchport access vlan 135
-no shut
 
-int g1/2
-description Access port for Facilities
-spanning-tree portfast
-switchport mode access
-switchport access vlan 145
-no shut
 
-int g1/3
-description Access port for Visitor1
-spanning-tree portfast
-switchport mode access
-switchport access vlan 155
-no shut
-
-int g2/0
-description Access port for IT
-spanning-tree portfast
-switchport mode access
-switchport access vlan 720
-no shut
