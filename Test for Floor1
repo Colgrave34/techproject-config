@@ -77,7 +77,7 @@ interface Vlan720
  no shutdown
 
 ! Access Ports Configuration
-interface FastEthernet0/1
+interface GigabitEthernet0/1
  description Access port for PharmaPlus
  switchport mode access
  switchport access vlan 105
@@ -85,7 +85,7 @@ interface FastEthernet0/1
  spanning-tree bpduguard enable
  no shutdown
 
-interface FastEthernet0/2
+interface GigabitEthernet0/2
  description Access port for DynaLabs
  switchport mode access
  switchport access vlan 115
@@ -93,7 +93,7 @@ interface FastEthernet0/2
  spanning-tree bpduguard enable
  no shutdown
 
-interface FastEthernet0/3
+interface GigabitEthernet0/3
  description Access port for Reception
  switchport mode access
  switchport access vlan 125
@@ -101,7 +101,7 @@ interface FastEthernet0/3
  spanning-tree bpduguard enable
  no shutdown
 
-interface FastEthernet0/4
+interface GigabitEthernet0/4
  description Access port for Security
  switchport mode access
  switchport access vlan 135
@@ -109,7 +109,7 @@ interface FastEthernet0/4
  spanning-tree bpduguard enable
  no shutdown
 
-interface FastEthernet0/5
+interface GigabitEthernet0/5
  description Access port for Facilities
  switchport mode access
  switchport access vlan 145
@@ -117,7 +117,7 @@ interface FastEthernet0/5
  spanning-tree bpduguard enable
  no shutdown
 
-interface FastEthernet0/6
+interface GigabitEthernet0/6
  description Access port for Visitor1
  switchport mode access
  switchport access vlan 155
@@ -125,7 +125,7 @@ interface FastEthernet0/6
  spanning-tree bpduguard enable
  no shutdown
 
-interface FastEthernet0/7
+interface GigabitEthernet0/7
  description Access port for IT
  switchport mode access
  switchport access vlan 720
@@ -134,13 +134,13 @@ interface FastEthernet0/7
  no shutdown
 
 ! Configure trunk ports
-interface FastEthernet0/0
+interface GigabitEthernet0/0
  description Trunk link to SpringCore1
  switchport mode trunk
  switchport trunk allowed vlan all
  no shutdown
 
-interface FastEthernet0/1
+interface GigabitEthernet0/8
  description Trunk link to SpringCore2
  switchport mode trunk
  switchport trunk allowed vlan all
