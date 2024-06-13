@@ -13,11 +13,8 @@ service password-encryption
 no ip domain-lookup
 clock timezone EST -5
 banner motd #Authorized Access Only!#
-vtp mode transparent
-
-
 sdm prefer dual-ipv4-and-ipv6 default
-
+vtp mode transparent
 
 # VLAN
 vlan 105

@@ -14,8 +14,6 @@ no ip domain-lookup
 clock timezone EST -5
 banner motd #Authorized Access Only!#
 sdm prefer dual-ipv4-and-ipv6 default
-
-# Enable VTP mode to Transparent
 vtp mode transparent
 
 # VLAN
