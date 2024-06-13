@@ -116,4 +116,11 @@ switchport mode access
 switchport access vlan 720
 no shutdown
 
-vtp mode transparent 
+vtp mode transparent
+
+
+# Spanning-tree 
+int range g0/0-3, g1/0-3, g2/0-3, g3/0-3, g4/0-3 
+spanning-tree portfast 
+enable bpdu guard 
+spanning-tree bpduguard enable 
