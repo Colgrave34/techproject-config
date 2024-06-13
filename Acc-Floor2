@@ -9,6 +9,7 @@ login
 line vty 0 15
 password Windows1
 login
+no ip domain-lookup
 clock timezone EST -5
 banner motd #Authorized Access Only!#
 sdm prefer dual-ipv4-and-ipv6 default
@@ -74,13 +75,17 @@ spanning-tree portfast
 spanning-tree bpduguard en
 
 # Trunk Config
-int 0/0
+int g0/0
 description Trunk link to SpringCore1
-switchport mode dynamic auto
-switchport native vlan 999
-switchport trunk allowed vlan 200, 205, 210, 215, 220, 720, 990, 999
-int 0/1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk native vlan 999
+switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 990, 999
+int g0/1
 description Trunk link to SpringCore2
-switchport mode dynamic auto
-switchport native vlan 999
-switchport trunk allowed vlan 200, 205, 210, 215, 220, 720, 990, 999
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk native vlan 999
+switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 990, 999
