@@ -133,7 +133,7 @@ no shut
 
 # configuring port fast 
  
-int range g0/0-3, g1/0
+int range <range>
 spanning-tree portfast 
 spanning-tree bpdu guard enable
 
