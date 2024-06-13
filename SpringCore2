@@ -85,16 +85,19 @@ switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 200, 205, 210, 215, 
 
 # IP Address
 int g1/1
+no switchport 
 ip address 10.150.127.22 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::22/64
 description SprintCore2 to SpringCore1
 no shut
 int g1/2
+no switchport 
 ip address 10.150.127.10 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::10/64
 description SpringCore2 to SpringR1
 no shut
 int g1/3
+no switchport
 ip address 10.150.127.18 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::18/64
 description SpringCore2 to SpringR2
