@@ -20,22 +20,22 @@ vtp mode transparent
 
 # Point-to-Point IP Interface
 int g1/1
+description SprintCore1 to SpringCore2
 no switchport
 ip address 10.150.127.21 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::21/64
-description SprintCore1 to SpringCore2
 no shut
 int g1/2
+description SpringCore1 to SpringR2
 no switchport
 ip address 10.150.127.14 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::14/64
-description SpringCore1 to SpringR2
 no shut
 int g1/3
+description SpringCore1 to SpringR1
 no switchport 
 ip address 10.150.127.6 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::6/64
-description SpringCore1 to SpringR1
 no shut
 
 # VLAN

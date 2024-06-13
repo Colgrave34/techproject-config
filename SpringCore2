@@ -1,7 +1,7 @@
 # Basic Config
 en
 conf t
-hostname SpringCore1
+hostname SpringCore2
 enable secret Windows1
 line console 0
 password Windows1
@@ -20,22 +20,22 @@ vtp mode transparent
 
 # Point-to-Point IP Interface
 int g1/1
+description SprintCore2 to SpringCore1
 no switchport 
 ip address 10.150.127.22 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::22/64
-description SprintCore2 to SpringCore1
 no shut
 int g1/2
+description SpringCore2 to SpringR1
 no switchport 
 ip address 10.150.127.10 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::10/64
-description SpringCore2 to SpringR1
 no shut
 int g1/3
+description SpringCore2 to SpringR2
 no switchport
 ip address 10.150.127.18 255.255.255.252
 ipv6 address 2001:bbfc:88ef:ffff::18/64
-description SpringCore2 to SpringR2
 no shut
 
 # VLAN
@@ -86,7 +86,7 @@ int g1/0
 channel-group 2 mode active
 no shut
 
-int port-channel 1
+int port-channel 2
 description EtherChannel2 DataCenter
 switchport trunk encapsulation dot1q
 switchport mode trunk
