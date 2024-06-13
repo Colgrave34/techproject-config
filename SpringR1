@@ -69,6 +69,7 @@ network 10.150.127.8 0.0.0.3 area 0
 
 
 #some changes 
+router ospf 22
 router-id 4.4.4.4
 network 10.150.127.0 0.0.0.3 area 0
 network 10.150.127.4 0.0.0.3 area 0
