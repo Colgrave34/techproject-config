@@ -85,8 +85,6 @@ switchport mode trunk
 switchport nonegotiate
 switchport trunk native vlan 999
 switchport trunk allowed VLAN 105,115,125,135,145,155,200,205,210,215,220,305,310,315,320,325,720,990,999
-spanning-tree portfast trunk
-spanning-tree bpduguard enable
 int range g0/2-3
 channel-group 2 mode active
 int port-channel 2
@@ -96,5 +94,3 @@ switchport mode trunk
 switchport nonegotiate
 switchport trunk native vlan 999
 switchport trunk allowed VLAN 105,115,125,135,145,155,200,205,210,215,220,305,310,315,320,325,720,990,999
-spanning-tree portfast trunk
-spanning-tree bpduguard enable

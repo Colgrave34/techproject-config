@@ -93,8 +93,6 @@ switchport mode trunk
 switchport nonegotiate
 switchport trunk native vlan 999
 switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
-spanning-tree portfast trunk
-spanning-tree bpduguard enable
 int g0/1
 description Trunk link to SpringCore2
 switchport trunk encapsulation dot1q
@@ -102,5 +100,3 @@ switchport mode trunk
 switchport nonegotiate
 switchport trunk native vlan 999
 switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
-spanning-tree portfast trunk
-spanning-tree bpduguard enable
