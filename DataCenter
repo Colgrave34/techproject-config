@@ -1,6 +1,6 @@
 # Basic Config
-enable
-config t
+en
+conf t
 hostname DataCenter
 enable secret Windows1
 line console 0
@@ -9,19 +9,15 @@ login
 line vty 0 15
 password Windows1
 login
-exit
-banner motd #Authorized Access Only!#
-exit
+no ip domain-lookup
 clock timezone EST -5
+banner motd #Authorized Access Only!#
 sdm prefer dual-ipv4-and-ipv6 default
 
+# Enable VTP mode to Transparent
+vtp mode transparent
+
 # VLAN
-vlan 990
-#name DataCenter 
-Vlan 999
-Name Native
-vlan 720
-name IT
 vlan 105
 name PharmaPlus 
 vlan 115 
@@ -45,64 +41,54 @@ name MassageSpa
 vlan 220
 name Visitor2
 vlan 305
- name Allergist
+name Allergist
 vlan 310
- name Physiotherapy
+name Physiotherapy
 vlan 315
- name DentalOffice
+name DentalOffice
 vlan 320
- name ENT
+name ENT
 vlan 325
- name Visitor3
+name Visitor3
+vlan 720
+name IT
+vlan 990
+name DataCenter 
+Vlan 999
+Name Native
 
-
-
-# Trunk Config
-Int range g0/0-1
-channel-group 1 mode active
-exit
-int port-channel 1
-switchport mode dynamic auto
-switchport trunk native vlan 999
-switchport trunk allowed VLAN 105, 115, 125, 135, 145, 155, 200, 205, 210, 215, 220, 305, 310, 315, 320, 325, 720, 990, 999
-description EtherChannel link to SpringCore1
-exit
-
-int range g0/2-3
-channel-group 2 mode active
-exit
-int port-channel 2
-switchport mode dynamic auto
-switchport trunk native vlan 999
-switchport trunk allowed VLAN 105, 115, 125, 135, 145, 155, 200, 205, 210, 215, 220, 305, 310, 315, 320, 325, 720, 990, 999
-description EtherChannel link to SpringCore2
-exit
-
-# IP Address
-int vlan 990
-ip address 10.150.0.1 255.255.255.0
-ipv6 address 2001:bbfc:88ef::/64
-description DataCenterVLAN
-no shut
-
-int vlan 720
-ip address 10.150.120.1 255.255.255.0
-ipv6 address 2001:bbfc:88ef:120::/64
-description IT VLAN
-no shut
-
-
-
-
-#Assign vlans to ports 
-int g0/4
+# Assign VLAN to Ports
+int g3/2
 description Access port for IT
 switchport mode access
 switchport access vlan 720
-no shutdown
-
-interface  range GigabitEthernet 0/5-13
+no shut
+interface range g3/3
 description Connection to DataCenter
 switchport mode access
 switchport access vlan 990
 no shut
+
+# Trunk Config
+int range g0/0-1
+channel-group 1 mode active
+exit
+int port-channel 1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk native vlan 999
+switchport trunk allowed VLAN 105, 115, 125, 135, 145, 155, 200, 205, 210, 215, 220, 305, 310, 315, 320, 325, 720, 990, 999
+description EtherChannel link to SpringCore1
+exit
+int range g0/2-3
+channel-group 2 mode active
+exit
+int port-channel 2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk native vlan 999
+switchport trunk allowed VLAN 105, 115, 125, 135, 145, 155, 200, 205, 210, 215, 220, 305, 310, 315, 320, 325, 720, 990, 999
+description EtherChannel link to SpringCore2
+exit
