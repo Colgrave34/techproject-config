@@ -1,0 +1,130 @@
+# Basic Config
+en
+conf t
+hostname SpringR1
+enable secret Windows1
+line console 0
+password Windows1
+login
+line vty 0 15
+password Windows1
+login
+service password-encryption
+no ip domain-lookup
+clock timezone EST -5
+banner motd #Authorized Access Only!#
+sdm prefer dual-ipv4-and-ipv6 default
+
+# Point-to-Point IP Interface
+int g0/3
+description SpringR1 to ISP
+ip address dhcp
+ipv6 address dhcp
+no shut
+int g0/0
+description SpringR1 to SpringCore1
+ip address 10.150.127.5 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::5/64
+no shut
+int g0/1
+description SpringR1 to SpringCore2
+ip address 10.150.127.9 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::9/64
+no shut
+int g0/2
+description SpringR1 to SpringR2
+ip address 10.150.127.1 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::1/64
+no shut
+
+# OSPF
+router ospf 22
+router-id 10.10.10.10
+network 10.150.0.0 0.0.0.255 area 0
+network 10.150.8.0 0.0.0.255 area 0
+network 10.150.12.0 0.0.0.255 area 0
+network 10.150.16.0 0.0.0.255 area 0
+network 10.150.20.0 0.0.0.255 area 0
+network 10.150.24.0 0.0.0.255 area 0
+network 10.150.28.0 0.0.0.255 area 0
+network 10.150.44.0 0.0.0.255 area 0
+network 10.150.48.0 0.0.0.255 area 0
+network 10.150.52.0 0.0.0.255 area 0
+network 10.150.56.0 0.0.0.255 area 0
+network 10.150.60.0 0.0.0.255 area 0
+network 10.150.80.0 0.0.0.255 area 0
+network 10.150.84.0 0.0.0.255 area 0
+network 10.150.88.0 0.0.0.255 area 0
+network 10.150.92.0 0.0.0.255 area 0
+network 10.150.96.0 0.0.0.255 area 0
+network 10.150.120.0 0.0.0.255 area 0
+network 10.150.127.0 0.0.0.3 area 0
+network 10.150.127.4 0.0.0.3 area 0
+network 10.150.127.8 0.0.0.3 area 0
+
+
+# Basic Config
+en
+conf t
+hostname SpringR2
+enable secret Windows1
+line console 0
+password Windows1
+login
+line vty 0 15
+password Windows1
+login
+service password-encryption
+no ip domain-lookup
+clock timezone EST -5
+banner motd #Authorized Access Only!#
+sdm prefer dual-ipv4-and-ipv6 default
+
+# Point-to-Point IP Interface
+int g0/3
+description SpringR2 to ISP
+ip address dhcp
+ipv6 address dhcp
+no shut
+int g0/0
+description SpringR2 to SpringCore2
+ip address 10.150.127.17 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::17/64
+no shut
+int g0/1
+description SpringR2 to SpringCore1
+ip address 10.150.127.13 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::13/64
+no shut
+int g0/2
+description SpringR2 to SpringR1
+ip address 10.150.127.2 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::2/64
+no shut
+
+# OSPF
+router ospf 22
+router-id 9.9.9.9
+network 10.150.0.0 0.0.0.255 area 0
+network 10.150.8.0 0.0.0.255 area 0
+network 10.150.12.0 0.0.0.255 area 0
+network 10.150.16.0 0.0.0.255 area 0
+network 10.150.20.0 0.0.0.255 area 0
+network 10.150.24.0 0.0.0.255 area 0
+network 10.150.28.0 0.0.0.255 area 0
+network 10.150.44.0 0.0.0.255 area 0
+network 10.150.48.0 0.0.0.255 area 0
+network 10.150.52.0 0.0.0.255 area 0
+network 10.150.56.0 0.0.0.255 area 0
+network 10.150.60.0 0.0.0.255 area 0
+network 10.150.80.0 0.0.0.255 area 0
+network 10.150.84.0 0.0.0.255 area 0
+network 10.150.88.0 0.0.0.255 area 0
+network 10.150.92.0 0.0.0.255 area 0
+network 10.150.96.0 0.0.0.255 area 0
+network 10.150.120.0 0.0.0.255 area 0
+network 10.150.127.0 0.0.0.3 area 0
+network 10.150.127.8 0.0.0.3 area 0
+network 10.150.127.12 0.0.0.3 area 0
+
+
