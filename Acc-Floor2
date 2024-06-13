@@ -73,7 +73,7 @@ switchport access vlan 990
 no shut
 
 # Enable Spanning Tree and BPDU Guard
-int g0/2-3, g1/0-2, g3/2-3
+int range g0/2-3, g1/0-2, g3/2-3
 spanning-tree portfast
 spanning-tree bpduguard en
 
