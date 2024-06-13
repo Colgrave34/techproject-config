@@ -89,21 +89,21 @@ description Trunk link to Floor1-Acc1
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport nonegotiate
-switchport native vlan 999
+switchport trunk native vlan 999
 switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
 int g0/1
 description Trunk link to Floor2-Acc1
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport nonegotiate
-switchport native vlan 999
+switchport trunk native vlan 999
 switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
 int g0/2
 description Trunk link to Floor3-Acc1
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport nonegotiate
-switchport native vlan 999
+switchport trunk native vlan 999
 switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
 
 # EtherChannel Config
