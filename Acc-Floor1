@@ -37,7 +37,7 @@ Name Native
 int g0/2
 description Access port for PharmaPlus
 switchport mode access
-switchport access vlan 115
+switchport access vlan 105
 no shut
 int g0/3
 description Access port for DynaLabs
@@ -50,7 +50,7 @@ switchport mode access
 switchport access vlan 125
 no shut
 int g1/1
-description Access port for Reception
+description Access port for Security
 switchport mode access
 switchport access vlan 135
 no shut
