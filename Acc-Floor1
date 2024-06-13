@@ -43,8 +43,6 @@ int g0/2
 description Access port for PharmaPlus
 switchport mode access
 switchport access vlan 115
-spanning-tree portfast
-spanning-tree bpduguard en
 no shut
 
 int g0/3
