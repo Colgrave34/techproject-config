@@ -1,7 +1,7 @@
 # Basic Config
-enable
-config t
-hostname SpringCore2
+en
+conf t
+hostname SpringCore1
 enable secret Windows1
 line console 0
 password Windows1
@@ -9,20 +9,36 @@ login
 line vty 0 15
 password Windows1
 login
-exit
-banner motd #Authorized Access Only!#
+service password-encryption
+no ip domain-lookup
 clock timezone EST -5
-exit
-
+banner motd #Authorized Access Only!#
 sdm prefer dual-ipv4-and-ipv6 default
 
+# Enable VTP mode to Transparent
+vtp mode transparent
+
+# Point-to-Point IP Interface
+int g1/1
+no switchport 
+ip address 10.150.127.22 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::22/64
+description SprintCore2 to SpringCore1
+no shut
+int g1/2
+no switchport 
+ip address 10.150.127.10 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::10/64
+description SpringCore2 to SpringR1
+no shut
+int g1/3
+no switchport
+ip address 10.150.127.18 255.255.255.252
+ipv6 address 2001:bbfc:88ef:ffff::18/64
+description SpringCore2 to SpringR2
+no shut
+
 # VLAN
-vlan 990
-name DataCenter 
-Vlan 999
-Name Native
-vlan 720
-name IT
 vlan 105
 name PharmaPlus 
 vlan 115 
@@ -46,17 +62,21 @@ name MassageSpa
 vlan 220
 name Visitor2
 vlan 305
- name Allergist
+name Allergist
 vlan 310
- name Physiotherapy
+name Physiotherapy
 vlan 315
- name DentalOffice
+name DentalOffice
 vlan 320
- name ENT
+name ENT
 vlan 325
- name Visitor3
-
-
+name Visitor3
+vlan 720
+name IT
+vlan 990
+name DataCenter 
+Vlan 999
+Name Native
 
 #change this
 # Trunk Config
@@ -85,32 +105,11 @@ switchport mode dynamic desirable
 description Trunk link to DataCenter
 switchport trunk native vlan 999
 switchport trunk allowed vlan 105,115,125,135,145,155,200,205,210,215,220,720,305,310,315,320,325,999
-# IP Address
-int g1/1
-no switchport 
-ip address 10.150.127.22 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::22/64
-description SprintCore2 to SpringCore1
-no shut
-int g1/2
-no switchport 
-ip address 10.150.127.10 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::10/64
-description SpringCore2 to SpringR1
-no shut
-int g1/3
-no switchport
-ip address 10.150.127.18 255.255.255.252
-ipv6 address 2001:bbfc:88ef:ffff::18/64
-description SpringCore2 to SpringR2
-no shut
 
 # Enable Spanning Tree and BPDU Guard
 int range g0/0-3, g1/0
 spanning-tree portfast
 spanning-tree bpduguard en
-
-
 
 int vlan 105
 description PharmaPlus

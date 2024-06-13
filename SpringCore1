@@ -18,7 +18,7 @@ sdm prefer dual-ipv4-and-ipv6 default
 # Enable VTP mode to Transparent
 vtp mode transparent
 
-# IP Address
+# Point-to-Point IP Interface
 int g1/1
 no switchport
 ip address 10.150.127.21 255.255.255.252
