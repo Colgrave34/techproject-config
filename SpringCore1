@@ -79,7 +79,7 @@ Vlan 999
 name Native
 
 # Enable Spanning Tree and BPDU Guard
-int range g0/0-3, 1/0
+int range g0/0-3, g1/0
 spanning-tree portfast
 spanning-tree bpduguard en
 
