@@ -9,9 +9,10 @@ login
 line vty 0 15
 password Windows1
 login
+clock timezone EST -5
 exit
 banner motd #Authorized Access Only!#
-clock timezone EST -5
+
 sdm prefer dual-ipv4-and-ipv6 default
 
 # VLAN
@@ -35,12 +36,12 @@ vlan 999
 Name Native 
 
 # Trunk Config
-int 0/0
+int GigabitEthernet0/0
 switchport mode dynamic auto
 description Trunk link to SpringCore1
 switchport native vlan 999
 switchport trunk allowed vlan 105, 115, 125, 135, 145, 155, 720, 990,999
-int 0/1
+int GigabitEthernet0/1
 switchport mode dynamic auto
 description Trunk link to SpringCore2
 switchport native vlan 999
