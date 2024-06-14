@@ -126,7 +126,6 @@ no shut
 int range g0/0-3, g1/0
 spanning-tree portfast
 spanning-tree bpduguard en
-spanning-tree vlan 105,115,125,135,145,155,200,205,210,215,220,305,310,315,320,325,720,990,999
 
 # Enable DHCP ip helper-address Config
 int vlan 105

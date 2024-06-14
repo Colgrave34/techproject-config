@@ -78,121 +78,6 @@ name DataCenter
 Vlan 999
 name Native
 
-# Enable DHCP ip helper-address Config
-int vlan 105
-description PharmaPlus
-ip address 10.150.8.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 115
-Description DynaLabs
-ip address 10.150.12.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 125
-Description Reception
-ip address 10.150.16.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 135
-Description Security
-ip address 10.150.20.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 145
-Description Facilities
-ip address 10.150.24.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 155
-Description Visitor1
-ip address 10.150.28.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 200
-Description Physicians
-ip address 10.150.44.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 205
-description Childrens Health
-ip address 10.150.48.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 210
-Description CoolidgeLab
-ip address 10.150.52.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 215
-Description MassageSpa
-ip address 10.150.56.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 220
-description Visitor2
-ip address 10.150.60.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 305
-Description Allergist
-ip address 10.150.80.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 310
-Description Physiotherapy
-ip address 10.150.84.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 315
-Description DentalOffice
-ip address 10.150.88.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 320
-Description ENT
-ip address 10.150.92.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-int vlan 325
-Description Visitor3
-ip address 10.150.96.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-interface vlan 720
-Description IT
-ip address 10.150.120.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-interface vlan 990
-Description DataCenter
-ip address 10.150.0.2 255.255.255.0
-ip helper-address 10.150.90.12
-no shut
-
-# Enable Spanning Tree and BPDU Guard
-int range g0/0-3, g1/0
-spanning-tree portfast
-spanning-tree bpduguard en
-spanning-tree vlan 105,115,125,135,145,155,200,205,210,215,220,305,310,315,320,325,720,990,999
-
 # EtherChannel Config
 int g0/3
 channel-group 1 mode active
@@ -235,6 +120,138 @@ switchport mode trunk
 switchport nonegotiate
 switchport trunk native vlan 999
 switchport trunk allowed vlan 305,310,315,320,325,720,990,999
+no shut
+
+# Enable Spanning Tree and BPDU Guard
+int range g0/0-3, g1/0
+spanning-tree portfast
+spanning-tree bpduguard en
+
+# Enable DHCP ip helper-address Config
+int vlan 105
+description PharmaPlus
+ip address 10.150.8.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 115
+Description DynaLabs
+ip address 10.150.12.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 125
+Description Reception
+ip address 10.150.16.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 135
+Description Security
+ip address 10.150.20.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 145
+Description Facilities
+ip address 10.150.24.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 155
+Description Visitor1
+ip address 10.150.28.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 200
+Description Physicians
+ip address 10.150.44.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 205
+description Childrens Health
+ip address 10.150.48.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 210
+Description CoolidgeLab
+ip address 10.150.52.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 215
+Description MassageSpa
+ip address 10.150.56.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 220
+description Visitor2
+ip address 10.150.60.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 305
+Description Allergist
+ip address 10.150.80.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 310
+Description Physiotherapy
+ip address 10.150.84.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 315
+Description DentalOffice
+ip address 10.150.88.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 320
+Description ENT
+ip address 10.150.92.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+int vlan 325
+Description Visitor3
+ip address 10.150.96.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+interface vlan 720
+Description IT
+ip address 10.150.120.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
+no shut
+
+interface vlan 990
+Description DataCenter
+ip address 10.150.0.2 255.255.255.0
+ip helper-address 10.150.90.12
+shut
 no shut
 
 # OSPF
