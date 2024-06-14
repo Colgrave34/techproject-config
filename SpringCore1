@@ -79,10 +79,10 @@ Vlan 999
 name Native
 
 # EtherChannel Config
-int g0/3
-channel-group 1 mode active
-no shut
-int g1/0
+int range g0/3,g1/0
+switchport mode trunk
+switchport nonegotiate
+shut
 channel-group 1 mode active
 no shut
 
@@ -121,11 +121,6 @@ switchport nonegotiate
 switchport trunk native vlan 999
 switchport trunk allowed vlan 305,310,315,320,325,720,990,999
 no shut
-
-# Enable Spanning Tree and BPDU Guard
-int range g0/0-3, g1/0
-spanning-tree portfast
-spanning-tree bpduguard en
 
 # Enable DHCP ip helper-address Config
 int vlan 105
