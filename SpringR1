@@ -63,15 +63,8 @@ network 10.150.120.0 0.0.0.255 area 0
 network 10.150.127.0 0.0.0.3 area 0
 network 10.150.127.4 0.0.0.3 area 0
 network 10.150.127.8 0.0.0.3 area 0
+network 10.150.127.12 0.0.0.3 area 0
+network 10.150.127.16 0.0.0.3 area 0
+network 10.150.127.20 0.0.0.3 area 0
 
-
-
-
-
-#some changes 
-router ospf 22
-router-id 4.4.4.4
-network 10.150.127.0 0.0.0.3 area 0
-network 10.150.127.4 0.0.0.3 area 0
-network 10.150.127.8 0.0.0.3 area 0
-default-information originate 
+#default-information originate 
