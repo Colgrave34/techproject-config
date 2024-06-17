@@ -119,77 +119,77 @@ no shut
 # Enable DHCP ip helper-address Config
 int vlan 105
 description PharmaPlus
-ip address 10.150.8.2 255.255.255.0
+ip address 10.150.8.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 105 ip 10.150.8.1
 no shut
 
 int vlan 115
 Description DynaLabs
-ip address 10.150.12.2 255.255.255.0
+ip address 10.150.12.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 115 ip 10.150.12.1
 no shut
 
 int vlan 125
 Description Reception
-ip address 10.150.16.2 255.255.255.0
+ip address 10.150.16.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 125 ip 10.150.16.1
 no shut
 
 int vlan 135
 Description Security
-ip address 10.150.20.2 255.255.255.0
+ip address 10.150.20.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 135 ip 10.150.20.1
 no shut
 
 int vlan 145
 Description Facilities
-ip address 10.150.24.2 255.255.255.0
+ip address 10.150.24.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 145 ip 10.150.24.1
 no shut
 
 int vlan 155
 Description Visitor1
-ip address 10.150.28.2 255.255.255.0
+ip address 10.150.28.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 155 ip 10.150.28.1
 no shut
 
 int vlan 200
 Description Physicians
-ip address 10.150.44.2 255.255.255.0
+ip address 10.150.44.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 200 ip 10.150.44.1
 no shut
 
 int vlan 205
 description Childrens Health
-ip address 10.150.48.2 255.255.255.0
+ip address 10.150.48.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 205 ip 10.150.48.1
 no shut
 
 int vlan 210
 Description CoolidgeLab
-ip address 10.150.52.2 255.255.255.0
+ip address 10.150.52.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 210 ip 10.150.52.1
 no shut
 
 int vlan 215
 Description MassageSpa
-ip address 10.150.56.2 255.255.255.0
+ip address 10.150.56.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 215 ip 10.150.56.1
 no shut
 
 int vlan 220
 description Visitor2
-ip address 10.150.60.2 255.255.255.0
+ip address 10.150.60.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 220 ip 10.150.60.1
 no shut
@@ -198,7 +198,7 @@ int vlan 305
 Description Allergist
 ip address 10.150.80.1 255.255.255.0
 ip helper-address 10.150.0.12
-standby 5 ip 10.150.80.2
+standby 5 ip 10.150.80.1
 standby 5 priority 150
 standby 5 preempt
 no shut
@@ -207,7 +207,7 @@ int vlan 310
 Description Physiotherapy
 ip address 10.150.84.1 255.255.255.0
 ip helper-address 10.150.0.12
-standby 10 ip 10.150.84.2
+standby 10 ip 10.150.84.1
 standby 10 priority 150
 standby 10 preempt
 no shut
@@ -216,7 +216,7 @@ int vlan 315
 Description DentalOffice
 ip address 10.150.88.1 255.255.255.0
 ip helper-address 10.150.0.12
-standby 15 ip 10.150.88.2
+standby 15 ip 10.150.88.1
 standby 15 priority 150
 standby 15 preempt
 no shut
@@ -225,7 +225,7 @@ int vlan 320
 Description ENT
 ip address 10.150.92.1 255.255.255.0
 ip helper-address 10.150.0.12
-standby 20 ip 10.150.92.2
+standby 20 ip 10.150.92.1
 standby 20 priority 150
 standby 20 preempt
 no shut
@@ -234,7 +234,7 @@ int vlan 325
 Description Visitor3
 ip address 10.150.96.1 255.255.255.0
 ip helper-address 10.150.0.12
-standby 25 ip 10.150.96.2
+standby 25 ip 10.150.96.1
 standby 25 priority 150
 standby 25 preempt
 no shut
@@ -243,7 +243,7 @@ int vlan 720
 Description IT
 ip address 10.150.120.1 255.255.255.0
 ip helper-address 10.150.0.12
-standby 72 ip 10.150.120.2
+standby 72 ip 10.150.120.1
 standby 72 priority 150
 standby 72 preempt
 no shut
@@ -252,7 +252,7 @@ int vlan 990
 Description DataCenter
 ip address 10.150.0.1 255.255.255.0
 ip helper-address 10.150.0.12
-standby 99 ip 10.150.0.2
+standby 99 ip 10.150.0.1
 standby 99 priority 150
 standby 99 preempt
 no shut
