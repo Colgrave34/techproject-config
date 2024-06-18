@@ -268,7 +268,7 @@ int vlan 990
 Description DataCenter
 ip address 10.150.0.1 255.255.255.0
 ip helper-address 10.150.0.12
-standby 99 ip 10.150.150.1
+standby 99 ip 10.150.0.1
 standby 99 preempt
 no shut
 
