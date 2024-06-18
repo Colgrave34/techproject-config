@@ -80,20 +80,23 @@ name Native
 
 # EtherChannel Config
 int range g0/3,g1/0
+no ip address
+no switchport
 switchport mode trunk
 channel-group 1 mode active
 
 int port-channel 1
 description EtherChannel1 DataCenter
 switchport mode trunk
+switchport trunk encapsulation dot1q
 switchport trunk native vlan 999
 switchport trunk allowed VLAN 105,115,125,135,145,155,200,205,210,215,220,305,310,315,320,325,720,990,999
 
 # Trunk Config
 int g0/0
 description Trunk link to Floor1-Acc1
-switchport trunk encapsulation dot1q
 switchport mode trunk
+switchport trunk encapsulation dot1q
 switchport nonegotiate
 switchport trunk native vlan 999
 switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
@@ -101,8 +104,8 @@ no shut
 
 int g0/1
 description Trunk link to Floor2-Acc1
-switchport trunk encapsulation dot1q
 switchport mode trunk
+switchport trunk encapsulation dot1q
 switchport nonegotiate
 switchport trunk native vlan 999
 switchport trunk allowed vlan 200,205,210,215,220,720,990,999
@@ -110,8 +113,8 @@ no shut
 
 int g0/2
 description Trunk link to Floor3-Acc1
-switchport trunk encapsulation dot1q
 switchport mode trunk
+switchport trunk encapsulation dot1q
 switchport nonegotiate
 switchport trunk native vlan 999
 switchport trunk allowed vlan 305,310,315,320,325,720,990,999

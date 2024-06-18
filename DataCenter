@@ -75,22 +75,28 @@ spanning-tree bpduguard en
 
 # Trunk & EtherChannel Config
 int range g0/0-1
+no ip address
+no switchport
 switchport mode trunk
 channel-group 1 mode active
 
 int port-channel 1
 description EtherChannel link to SpringCore1
 switchport mode trunk
+switchport trunk encapsulation dot1q
 switchport trunk native vlan 999
 switchport trunk allowed VLAN 105,115,125,135,145,155,200,205,210,215,220,305,310,315,320,325,720,990,999
 no shut
 
 int range g0/2-3
+no ip address
+no switchport
 switchport mode trunk
 channel-group 2 mode active
 
 int port-channel 2
 description EtherChannel link to SpringCore2
 switchport mode trunk
+switchport trunk encapsulation dot1q
 switchport trunk native vlan 999
 switchport trunk allowed VLAN 105,115,125,135,145,155,200,205,210,215,220,305,310,315,320,325,720,990,999
