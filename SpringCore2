@@ -122,6 +122,7 @@ description PharmaPlus
 ip address 10.150.8.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 105 ip 10.150.8.1
+standby 105 preempt
 no shut
 
 int vlan 115
@@ -129,6 +130,7 @@ Description DynaLabs
 ip address 10.150.12.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 115 ip 10.150.12.1
+standby 115 preempt
 no shut
 
 int vlan 125
@@ -136,6 +138,7 @@ Description Reception
 ip address 10.150.16.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 125 ip 10.150.16.1
+standby 125 preempt
 no shut
 
 int vlan 135
@@ -143,6 +146,7 @@ Description Security
 ip address 10.150.20.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 135 ip 10.150.20.1
+standby 135 preempt
 no shut
 
 int vlan 145
@@ -150,6 +154,7 @@ Description Facilities
 ip address 10.150.24.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 145 ip 10.150.24.1
+standby 145 preempt
 no shut
 
 int vlan 155
@@ -157,6 +162,7 @@ Description Visitor1
 ip address 10.150.28.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 155 ip 10.150.28.1
+standby 155 preempt
 no shut
 
 int vlan 200
@@ -164,6 +170,7 @@ Description Physicians
 ip address 10.150.44.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 200 ip 10.150.44.1
+standby 200 preempt
 no shut
 
 int vlan 205
@@ -171,6 +178,7 @@ description Childrens Health
 ip address 10.150.48.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 205 ip 10.150.48.1
+standby 205 preempt
 no shut
 
 int vlan 210
@@ -178,6 +186,7 @@ Description CoolidgeLab
 ip address 10.150.52.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 210 ip 10.150.52.1
+standby 210 preempt
 no shut
 
 int vlan 215
@@ -185,6 +194,7 @@ Description MassageSpa
 ip address 10.150.56.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 215 ip 10.150.56.1
+standby 215 preempt
 no shut
 
 int vlan 220
@@ -192,6 +202,7 @@ description Visitor2
 ip address 10.150.60.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 220 ip 10.150.60.1
+standby 220 preempt
 no shut
 
 int vlan 305

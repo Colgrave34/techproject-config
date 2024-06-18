@@ -221,6 +221,7 @@ Description Allergist
 ip address 10.150.80.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 5 ip 10.150.80.1
+standby 5 preempt
 no shut
 
 int vlan 310
@@ -228,6 +229,7 @@ Description Physiotherapy
 ip address 10.150.84.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 10 ip 10.150.84.1
+standby 10 preempt
 no shut
 
 int vlan 315
@@ -235,6 +237,7 @@ Description DentalOffice
 ip address 10.150.88.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 15 ip 10.150.88.1
+standby 15 preempt
 no shut
 
 int vlan 320
@@ -242,6 +245,7 @@ Description ENT
 ip address 10.150.92.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 20 ip 10.150.92.1
+standby 20 preempt
 no shut
 
 int vlan 325
@@ -249,6 +253,7 @@ Description Visitor3
 ip address 10.150.96.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 25 ip 10.150.96.1
+standby 25 preempt
 no shut
 
 int vlan 720
@@ -256,6 +261,7 @@ Description IT
 ip address 10.150.120.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 72 ip 10.150.120.1
+standby 72 preempt
 no shut
 
 int vlan 990
@@ -263,6 +269,7 @@ Description DataCenter
 ip address 10.150.0.1 255.255.255.0
 ip helper-address 10.150.0.12
 standby 99 ip 10.150.150.1
+standby 99 preempt
 no shut
 
 # OSPF
