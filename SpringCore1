@@ -80,6 +80,7 @@ name Native
 
 # EtherChannel Config
 int range g0/3,g1/0
+switchport mode trunk
 channel-group 1 mode active
 
 int port-channel 1
