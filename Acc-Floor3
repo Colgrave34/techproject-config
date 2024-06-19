@@ -79,15 +79,15 @@ spanning-tree bpduguard en
 # Trunk Config
 int g0/0
 description Trunk link to SpringCore1
-switchport nonegotiate
-switchport mode trunk
 switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
 switchport trunk native vlan 999
 switchport trunk allowed vlan 305,310,315,320,325,720,990,999
 int g0/1
 description Trunk link to SpringCore2
-switchport nonegotiate
-switchport mode trunk
 switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
 switchport trunk native vlan 999
 switchport trunk allowed vlan 305,310,315,320,325,720,990,999
