@@ -76,8 +76,6 @@ spanning-tree bpduguard en
 # Trunk & EtherChannel Config
 int range g0/0-1
 no ip address
-no switchport
-switchport mode trunk
 channel-group 1 mode active
 
 int port-channel 1
@@ -90,8 +88,6 @@ no shut
 
 int range g0/2-3
 no ip address
-no switchport
-switchport mode trunk
 channel-group 2 mode active
 
 int port-channel 2
