@@ -15,6 +15,8 @@ clock timezone EST -5
 banner motd #Authorized Access Only!#
 sdm prefer dual-ipv4-and-ipv6 default
 vtp mode transparent
+no logging console
+no ip routing
 
 # VLAN
 vlan 105
