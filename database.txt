@@ -1,0 +1,54 @@
+ALTER TABLE dbo.Clients
+ADD constraint FK_Clients_Cities FOREIGN KEY (City)
+REFERENCES dbo.Cities (ID_City);
+
+ALTER TABLE dbo.Clients
+ADD constraint FK_Clients_Countries FOREIGN KEY (Country)
+REFERENCES dbo.Countries (ID_Country);
+
+ALTER TABLE dbo.Clients
+ADD constraint FK_Clients_Provinces FOREIGN KEY (Province)
+REFERENCES dbo.Provinces (ID_Province);
+
+ALTER TABLE dbo.JunInventory
+ADD constraint FK_JunInventory_Items FOREIGN KEY (ID_Item)
+REFERENCES dbo.Items (ID_Item);
+
+ALTER TABLE dbo.JunInventory
+ADD constraint FK_JunInventory_Client FOREIGN KEY (ID_Client)
+REFERENCES dbo.Clients (Clients);
+
+
+INSERT INTO dbo.Cities (ID_City, City)
+VALUES (1,'Toronto'),(2,'New York'),(3,'Beijing'),(4,'Tokyo'),(5,'Kuala Lumpur');
+
+INSERT INTO dbo.Clients (Clients,Name,ContactPerson,ContactPhone,ContactEmail,StreetAddress1,City,Province,Country)
+VALUES (1,'Achoo Inc.','Mo Leaster','26577755654','mo_leaster@shmc.ca','123 Example St',1,1,1),
+(2,'Springhill ENT','Joe Mama','22697866332','joe_mama@shmc.ca','456 Example St',2,2,2),
+(3, 'Childrens Health Center','John Wick','51977784726','john_wich@shmc.ca','789 Example St',3,3,3),
+(4, 'Dyna Labs','Mohit Uzhly','13988765479','mohit_uzhly@shmc.ca','112 Example St',4,4,4),
+(5, 'Pharma Plus','Marco Polo','15688681604','marco_polo@shmc.ca','233 Example St',5,5,5);
+
+INSERT INTO dbo.Countries (ID_Country, Country)
+VALUES (1,'Canada'),(2,'USA'),(3,'China'),(4,'Japan'),(5,'Malaysia');
+
+INSERT INTO dbo.Countries (ID_Item, Name,Description,Quantity)
+VALUES (1,'Cardboard Box','Cardborad Box',500),
+(2,'Paper','A4 Paper',10000),
+(3,'China','China from China',2),
+(4,'Covid 19 Vaccine','Covid 19 Vaccine',100),
+(5,'Pens','Pens',500);
+
+INSERT INTO dbo.JunInventory (ID_Inventory,ID_Item,ID_Client,Quantity)
+VALUES (1,5,4,100),
+(2,4,3,50),
+(3,3,2,50),
+(4,2,1,50),
+(5,1,5,50);
+
+INSERT INTO dbo.Provinces (ID_Province,Province)
+VALUES (1,'Ontairo'),
+(2,'New York'),
+(3,'Beijing'),
+(4,'Tokyo Metropolis'),
+(5,'Kuala Lumpur');
