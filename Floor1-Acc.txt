@@ -1,7 +1,7 @@
-
-!DataCenter
 !
-! Last configuration change at 01:19:29 UTC Fri Jul 12 2024
+!Acc-Floor1
+!
+! Last configuration change at 21:24:15 UTC Thu Jul 11 2024
 !
 version 15.2
 service timestamps debug datetime msec
@@ -9,14 +9,14 @@ service timestamps log datetime msec
 no service password-encryption
 service compress-config
 !
-hostname DataCentre
+hostname Acc-Floor1
 !
 boot-start-marker
 boot-end-marker
 !
 !
 no logging console
-enable secret 5 $1$NPx/$jCydXaJJSTLgK9XxHJeF./
+enable secret 5 $1$WVXx$EU9LpcTNmIMOzDhN013PJ1
 !
 no aaa new-model
 !
@@ -35,7 +35,7 @@ no ipv6 cef
 !
 !
 archive
- path tftp://10.150.0.16/Datacenter
+ path tftp://10.150.0.16/Floor1-Acc
  write-memory
  time-period 10080
 !
@@ -43,14 +43,29 @@ spanning-tree mode rapid-pvst
 spanning-tree extend system-id
 !
 !
-vlan 999
- name Native
+vlan 105
+ name PharmaPlus
+!
+vlan 115
+ name DynaLabs
+!
+vlan 125
+ name Reception
+!
+vlan 135
+ name Security
+!
+vlan 145
+ name Facilities
+!
+vlan 155
+ name Visitor1
 !
 vlan 720
  name IT
 !
-vlan 990
- name DataCenter
+vlan 999
+ name Native
 !
 vlan 888
  name Closed
@@ -68,104 +83,82 @@ vlan 888
 !
 !
 !
-interface Port-channel1
- switchport trunk allowed vlan 720,990,999
- switchport trunk encapsulation dot1q
- switchport trunk native vlan 999
- switchport mode trunk
-!
-interface Port-channel2
- switchport trunk allowed vlan 720,990,999
- switchport trunk encapsulation dot1q
- switchport trunk native vlan 999
- switchport mode trunk
-!
 interface GigabitEthernet0/0
- switchport trunk allowed vlan 720,990,999
+ switchport trunk allowed vlan 105,115,125,135,145,155,720,999
  switchport trunk encapsulation dot1q
  switchport trunk native vlan 999
  switchport mode trunk
  negotiation auto
- channel-group 1 mode desirable
 !
 interface GigabitEthernet0/1
- switchport trunk allowed vlan 720,990,999
+ switchport trunk allowed vlan 105,115,125,135,145,155,720,999
  switchport trunk encapsulation dot1q
- switchport trunk native vlan 999
+ switchport trunk native vlan 111
  switchport mode trunk
  negotiation auto
- channel-group 1 mode desirable
 !
 interface GigabitEthernet0/2
- switchport trunk allowed vlan 720,990,999
- switchport trunk encapsulation dot1q
- switchport trunk native vlan 999
- switchport mode trunk
+ switchport access vlan 105
+ switchport mode access
+ switchport nonegotiate
  negotiation auto
- channel-group 2 mode desirable
 !
 interface GigabitEthernet0/3
- switchport trunk allowed vlan 720,990,999
- switchport trunk encapsulation dot1q
- switchport trunk native vlan 999
- switchport mode trunk
+ switchport access vlan 115
+ switchport mode access
+ switchport nonegotiate
  negotiation auto
- channel-group 2 mode desirable
 !
 interface GigabitEthernet1/0
- switchport access vlan 990
+ switchport access vlan 125
  switchport mode access
  switchport nonegotiate
  negotiation auto
 !
 interface GigabitEthernet1/1
- switchport access vlan 990
+ switchport access vlan 125
  switchport mode access
  switchport nonegotiate
  negotiation auto
 !
 interface GigabitEthernet1/2
- switchport access vlan 990
+ switchport access vlan 135
  switchport mode access
  switchport nonegotiate
  negotiation auto
 !
 interface GigabitEthernet1/3
- switchport access vlan 720
+ switchport access vlan 135
  switchport mode access
  switchport nonegotiate
  negotiation auto
 !
 interface GigabitEthernet2/0
- switchport access vlan 888
+ switchport access vlan 145
  switchport mode access
  switchport nonegotiate
- shutdown
  negotiation auto
 !
 interface GigabitEthernet2/1
- switchport access vlan 888
+ switchport access vlan 155
  switchport mode access
  switchport nonegotiate
- shutdown
  negotiation auto
 !
 interface GigabitEthernet2/2
- switchport access vlan 888
+ switchport access vlan 155
  switchport mode access
  switchport nonegotiate
- shutdown
  negotiation auto
 !
 interface GigabitEthernet2/3
- switchport access vlan 888
+ switchport access vlan 720
  switchport mode access
  switchport nonegotiate
- shutdown
  negotiation auto
 !
-interface Vlan990
- ip address 10.150.0.34 255.255.255.0
+interface Vlan105
+ ip address 10.150.8.31 255.255.255.0
 !
 ip forward-protocol nd
 !
@@ -176,10 +169,6 @@ ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
 ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
 !
 !
-logging trap debugging
-logging origin-id hostname
-logging source-interface Vlan990
-logging host 10.150.0.16
 !
 !
 !

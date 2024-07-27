@@ -1,7 +1,7 @@
 
-!DataCenter
+!Acc-Floor3
 !
-! Last configuration change at 01:19:29 UTC Fri Jul 12 2024
+! Last configuration change at 23:23:01 UTC Thu Jul 11 2024
 !
 version 15.2
 service timestamps debug datetime msec
@@ -9,14 +9,14 @@ service timestamps log datetime msec
 no service password-encryption
 service compress-config
 !
-hostname DataCentre
+hostname Acc1-Floor3
 !
 boot-start-marker
 boot-end-marker
 !
 !
 no logging console
-enable secret 5 $1$NPx/$jCydXaJJSTLgK9XxHJeF./
+enable secret 5 $1$XEAY$97XbgC8J5iZEKEAUDx5aR0
 !
 no aaa new-model
 !
@@ -35,7 +35,7 @@ no ipv6 cef
 !
 !
 archive
- path tftp://10.150.0.16/Datacenter
+ path tftp://10.150.0.16/Floor3-Acc
  write-memory
  time-period 10080
 !
@@ -46,11 +46,23 @@ spanning-tree extend system-id
 vlan 999
  name Native
 !
+vlan 305
+ name Allergist
+!
+vlan 310
+ name Physiotherapy
+!
+vlan 315
+ name DentalOffice
+!
+vlan 320
+ name ENT
+!
+vlan 325
+ name Visitor3
+!
 vlan 720
  name IT
-!
-vlan 990
- name DataCenter
 !
 vlan 888
  name Closed
@@ -68,93 +80,72 @@ vlan 888
 !
 !
 !
-interface Port-channel1
- switchport trunk allowed vlan 720,990,999
- switchport trunk encapsulation dot1q
- switchport trunk native vlan 999
- switchport mode trunk
-!
-interface Port-channel2
- switchport trunk allowed vlan 720,990,999
- switchport trunk encapsulation dot1q
- switchport trunk native vlan 999
- switchport mode trunk
-!
 interface GigabitEthernet0/0
- switchport trunk allowed vlan 720,990,999
+ switchport trunk allowed vlan 305,310,315,320,325,720,999
  switchport trunk encapsulation dot1q
  switchport trunk native vlan 999
  switchport mode trunk
  negotiation auto
- channel-group 1 mode desirable
 !
 interface GigabitEthernet0/1
- switchport trunk allowed vlan 720,990,999
+ switchport trunk allowed vlan 305,310,315,320,325,720,999
  switchport trunk encapsulation dot1q
  switchport trunk native vlan 999
  switchport mode trunk
  negotiation auto
- channel-group 1 mode desirable
 !
 interface GigabitEthernet0/2
- switchport trunk allowed vlan 720,990,999
- switchport trunk encapsulation dot1q
- switchport trunk native vlan 999
- switchport mode trunk
+ switchport access vlan 305
+ switchport mode access
+ switchport nonegotiate
  negotiation auto
- channel-group 2 mode desirable
 !
 interface GigabitEthernet0/3
- switchport trunk allowed vlan 720,990,999
- switchport trunk encapsulation dot1q
- switchport trunk native vlan 999
- switchport mode trunk
+ switchport access vlan 310
+ switchport mode access
+ switchport nonegotiate
  negotiation auto
- channel-group 2 mode desirable
 !
 interface GigabitEthernet1/0
- switchport access vlan 990
+ switchport access vlan 315
  switchport mode access
  switchport nonegotiate
  negotiation auto
 !
 interface GigabitEthernet1/1
- switchport access vlan 990
+ switchport access vlan 315
  switchport mode access
  switchport nonegotiate
  negotiation auto
 !
 interface GigabitEthernet1/2
- switchport access vlan 990
+ switchport access vlan 320
  switchport mode access
  switchport nonegotiate
  negotiation auto
 !
 interface GigabitEthernet1/3
- switchport access vlan 720
+ switchport access vlan 320
  switchport mode access
  switchport nonegotiate
  negotiation auto
 !
 interface GigabitEthernet2/0
- switchport access vlan 888
+ switchport access vlan 325
  switchport mode access
  switchport nonegotiate
- shutdown
  negotiation auto
 !
 interface GigabitEthernet2/1
- switchport access vlan 888
+ switchport access vlan 720
  switchport mode access
  switchport nonegotiate
- shutdown
  negotiation auto
 !
 interface GigabitEthernet2/2
- switchport access vlan 888
+ switchport access vlan 720
  switchport mode access
  switchport nonegotiate
- shutdown
  negotiation auto
 !
 interface GigabitEthernet2/3
@@ -164,8 +155,8 @@ interface GigabitEthernet2/3
  shutdown
  negotiation auto
 !
-interface Vlan990
- ip address 10.150.0.34 255.255.255.0
+interface Vlan305
+ ip address 10.150.80.33 255.255.255.0
 !
 ip forward-protocol nd
 !
@@ -176,10 +167,6 @@ ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
 ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
 !
 !
-logging trap debugging
-logging origin-id hostname
-logging source-interface Vlan990
-logging host 10.150.0.16
 !
 !
 !

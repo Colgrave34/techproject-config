@@ -1,70 +1,196 @@
-# Basic Config
-en
-conf t
+
+!SpringR2
+!
+! Last configuration change at 06:56:07 UTC Fri Jul 12 2024
+!
+version 15.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
 hostname SpringR2
-enable secret Windows1
-line console 0
-password Windows1
-login
-line vty 0 15
-password Windows1
-login
-service password-encryption
-no ip domain-lookup
-clock timezone EST -5
-banner motd #Authorized Access Only!#
-sdm prefer dual-ipv4-and-ipv6 default
-
-# Point-to-Point IP Interface
-int g0/3
-ip address dhcp
-ipv6 address dhcp
-description SpringR2 to ISP
-no shut
-int g0/0
-ip address 10.150.127.17 255.255.255.252
-#ipv6 address 2001:bbfc:88ef:ffff::17/64
-description SpringR2 to SpringCore2
-no shut
-int g0/1
-ip address 10.150.127.13 255.255.255.252
-#ipv6 address 2001:bbfc:88ef:ffff::13/64
-description SpringR2 to SpringCore1
-no shut
-int g0/2
-ip address 10.150.127.2 255.255.255.252
-#ipv6 address 2001:bbfc:88ef:ffff::2/64
-description SpringR2 to SpringR1
-no shut
-
-# OSPF
-router ospf 22
-router-id 9.9.9.9
-# Layer2
-network 10.150.0.0 0.0.0.255 area 0
-network 10.150.8.0 0.0.0.255 area 0
-network 10.150.12.0 0.0.0.255 area 0
-network 10.150.16.0 0.0.0.255 area 0
-network 10.150.20.0 0.0.0.255 area 0
-network 10.150.24.0 0.0.0.255 area 0
-network 10.150.28.0 0.0.0.255 area 0
-network 10.150.44.0 0.0.0.255 area 0
-network 10.150.48.0 0.0.0.255 area 0
-network 10.150.52.0 0.0.0.255 area 0
-network 10.150.56.0 0.0.0.255 area 0
-network 10.150.60.0 0.0.0.255 area 0
-network 10.150.80.0 0.0.0.255 area 0
-network 10.150.84.0 0.0.0.255 area 0
-network 10.150.88.0 0.0.0.255 area 0
-network 10.150.92.0 0.0.0.255 area 0
-network 10.150.96.0 0.0.0.255 area 0
-network 10.150.120.0 0.0.0.255 area 0
-# p2p
-network 10.150.127.0 0.0.0.3 area 0
-network 10.150.127.4 0.0.0.3 area 0
-network 10.150.127.8 0.0.0.3 area 0
-network 10.150.127.12 0.0.0.3 area 0
-network 10.150.127.16 0.0.0.3 area 0
-network 10.150.127.20 0.0.0.3 area 0
-
-#default-information originate 
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no logging console
+enable secret 9 $9$5d27mrgCU4fq6t$pRYDg7Z72yQMfETmlexGG25JiiuNPv5a5F8.0QZdDxs
+!
+no aaa new-model
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+archive
+ path tftp://10.150.0.16/SpringR2
+ write-memory
+ time-period 10080
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 10.150.127.17 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ ip ospf network point-to-point
+ ip ospf 15 area 0
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address FE80::2 link-local
+ ipv6 address 2001:BBFC:88EF:FFFA::1/64
+ ipv6 ospf 15 area 0
+!
+interface GigabitEthernet0/1
+ ip address 10.150.127.13 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ ip ospf network point-to-point
+ ip ospf 15 area 0
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address FE80::2 link-local
+ ipv6 address 2001:BBFC:88EF:FFFB::2/64
+ ipv6 ospf 15 area 0
+!
+interface GigabitEthernet0/2
+ ip address 10.150.127.2 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ ip ospf 15 area 0
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address FE80::2 link-local
+ ipv6 address 2001:BBFC:88EF:FFFF::2/64
+ ipv6 ospf 15 area 0
+!
+interface GigabitEthernet0/3
+ ip address dhcp
+ ip nat outside
+ ip virtual-reassembly in
+ ip ospf 15 area 0
+ duplex auto
+ speed auto
+ media-type rj45
+!
+router ospfv3 15
+ router-id 2.2.2.2
+ !
+ address-family ipv6 unicast
+ exit-address-family
+!
+router ospf 15
+ router-id 2.2.2.2
+ priority 100
+ auto-cost reference-bandwidth 1000
+ passive-interface GigabitEthernet0/3
+ network 192.168.255.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip nat pool ACCESS 192.168.255.63 192.168.255.63 netmask 255.255.255.0
+ip nat inside source list 1 pool ACCESS overload
+ip route 0.0.0.0 0.0.0.0 192.168.255.1
+!
+logging trap debugging
+logging origin-id hostname
+logging source-interface GigabitEthernet0/2
+logging host 10.150.0.16
+ipv6 ioam timestamp
+!
+!
+access-list 1 permit 10.150.0.0 0.0.0.255
+access-list 1 deny   any
+!
+control-plane
+!
+banner exec 
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************
+banner incoming 
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************
+banner login 
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************
+!
+line con 0
+ exec-timeout 0 0
+ password cisco
+ logging synchronous
+ login
+line aux 0
+line vty 0 4
+ password cisco
+ login
+ transport input telnet
+line vty 5 15
+ password cisco
+ login
+ transport input telnet
+!
+no scheduler allocate
+!
+end

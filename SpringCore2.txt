@@ -1,302 +1,515 @@
-# Basic Config
-en
-conf t
+
+
+
+!
+! Last configuration change at 06:18:26 UTC Fri Jul 12 2024
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
 hostname SpringCore2
-enable secret Windows1
-line console 0
-password Windows1
-login
-line vty 0 15
-password Windows1
-login
-service password-encryption
-no ip domain-lookup
-clock timezone EST -5
-banner motd #Authorized Access Only!#
-sdm prefer dual-ipv4-and-ipv6 default
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$O8IP$NSsvuDQlbmBT9dfcml75c.
+!
+no aaa new-model
+!
+!
+!
+!
+!
 vtp mode transparent
-
-# Point-to-Point IP Interface
-int g1/1
-description SprintCore2 to SpringCore1
-no switchport 
-ip address 10.150.127.22 255.255.255.252
-#ipv6 address 2001:bbfc:88ef:ffff::22/64
-no shut
-
-int g1/2
-description SpringCore2 to SpringR1
-no switchport 
-ip address 10.150.127.10 255.255.255.252
-#ipv6 address 2001:bbfc:88ef:ffff::10/64
-no shut
-
-int g1/3
-description SpringCore2 to SpringR2
-no switchport
-ip address 10.150.127.18 255.255.255.252
-#ipv6 address 2001:bbfc:88ef:ffff::18/64
-no shut
-
-# VLAN
+!
+!
+!
+no ip domain-lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+!
+archive
+ path tftp://10.150.0.16/SpringCore2
+ write-memory
+ time-period 10080
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 105,115,125,135,145,155,200,205,210,215,999 priority 28672
+spanning-tree vlan 305,310,315,320,325,720,990 priority 24576
+!
+!
 vlan 105
-name PharmaPlus 
-vlan 115 
-name DynaLabs
+ name PharmaPlus 
+!
+vlan 115  
+ name DynaLabs
+!
 vlan 125
-name Reception
+ name Reception
+!
 vlan 135
-name Security
+ name Security
+!
 vlan 145
-name Facilities
+ name Facilities
+!
 vlan 155
-name Visitor1
+ name Visitor1
+!
 vlan 200
-name Physicians
+ name Physicians
+!
 vlan 205
-name ChildrensHealth
+ name ChildrensHealth
+!
 vlan 210
-name CoolidgeLab
+ name CoolidgeLab
+!         
 vlan 215
-name MassageSpa
+ name MassageSpa
+!
 vlan 220
-name Visitor2
+ name Visitor2
+!
 vlan 305
-name Allergist
+ name Allergist
+!
 vlan 310
-name Physiotherapy
+ name Physiotherapy
+!
 vlan 315
-name DentalOffice
+ name DentalOffice
+!
 vlan 320
-name ENT
+ name ENT
+!
 vlan 325
-name Visitor3
+ name Visitor3
+!
 vlan 720
-name IT
+ name IT  
+!
 vlan 990
-name DataCenter 
-Vlan 999
-name Native
+ name DataCenter 
+!
+vlan 999
+ name Native
+!
+vlan 888
+ name Closed
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Port-channel2
+ switchport trunk allowed vlan 720,990,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport mode trunk
+!
+interface GigabitEthernet0/0
+ switchport trunk allowed vlan 105,115,125,135,145,155,720,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport mode trunk
+ negotiation auto
+!
+interface GigabitEthernet0/1
+ switchport trunk allowed vlan 200,205,210,215,220,720,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport mode trunk
+ negotiation auto
+!
+interface GigabitEthernet0/2
+ switchport trunk allowed vlan 305,310,315,320,325,720,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport mode trunk
+ negotiation auto
+!
+interface GigabitEthernet0/3
+ switchport trunk allowed vlan 720,990,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport mode trunk
+ negotiation auto
+!
+interface GigabitEthernet1/0
+ switchport trunk allowed vlan 720,990,999
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport mode trunk
+ negotiation auto
+ channel-group 2 mode desirable
+!
+interface GigabitEthernet1/1
+ no switchport
+ ip address 10.150.127.22 255.255.255.252
+ ip ospf network point-to-point
+ ip ospf 15 area 0
+ negotiation auto
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:FFFC::2/64
+ ipv6 ospf 15 area 0
+!
+interface GigabitEthernet1/2
+ no switchport
+ ip address 10.150.127.10 255.255.255.252
+ ip ospf network point-to-point
+ ip ospf 15 area 0
+ negotiation auto
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:FFFE::2/64
+ ipv6 ospf 15 area 0
+!
+interface GigabitEthernet1/3
+ no switchport
+ ip address 10.150.127.18 255.255.255.252
+ ip ospf network point-to-point
+ ip ospf 15 area 0
+ negotiation auto
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:FFFA::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan999
+ ip address 10.150.99.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 999 ip 10.150.99.1
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:999::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan105
+ ip address 10.150.8.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 105 ip 10.150.8.1
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:105::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan115
+ ip address 10.150.12.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 115 ip 10.150.12.1
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:115::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan125
+ ip address 10.150.16.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 125 ip 10.150.16.1
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:125::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan135
+ ip address 10.150.20.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 135 ip 10.150.20.3
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:135::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan145
+ ip address 10.150.24.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 145 ip 10.150.24.1
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:145::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan155
+ ip address 10.150.28.3 255.255.255.0
+ ip access-group Visit190-IN in
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 155 ip 10.150.28.1
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:155::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan200
+ ip address 10.150.44.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 200 ip 10.150.44.1
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:200::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan205
+ ip address 10.150.48.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 205 ip 10.150.48.1
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:205::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan210
+ ip address 10.150.52.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 210 ip 10.150.52.1
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:210::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan215
+ ip address 10.150.56.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 215 ip 10.150.56.1
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:215::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan220
+ ip address 10.150.60.3 255.255.255.0
+ ip access-group Visit270-IN in
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 220 ip 10.150.60.1
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:220::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan305
+ ip address 10.150.80.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 305 ip 10.150.80.1
+ standby 305 priority 150
+ standby 305 preempt
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:305::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan310
+ ip address 10.150.84.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 310 ip 10.150.84.1
+ standby 310 priority 150
+ standby 310 preempt
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:310::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan315
+ ip address 10.150.88.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 315 ip 10.150.88.1
+ standby 315 priority 150
+ standby 315 preempt
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:315::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan320
+ ip address 10.150.92.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 320 ip 10.150.92.1
+ standby 320 priority 150
+ standby 320 preempt
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:320::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan325
+ ip address 10.150.96.3 255.255.255.0
+ ip access-group Visit360-IN in
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 325 ip 10.150.96.1
+ standby 325 priority 150
+ standby 325 preempt
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:325::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan720
+ ip address 10.150.120.3 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 720 ip 10.150.120.1
+ standby 720 priority 150
+ standby 720 preempt
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:720::2/64
+ ipv6 ospf 15 area 0
+!
+interface Vlan990
+ ip address 10.150.0.43 255.255.255.0
+ ip helper-address 10.150.0.12 
+ ip helper-address 10.150.0.13 
+ standby version 2
+ standby 990 ip 10.150.0.1
+ standby 990 priority 150
+ standby 990 preempt
+ ip ospf network point-to-point
+ ipv6 address FE80::4 link-local
+ ipv6 address 2001:BBFC:88EF:990::2/64
+ ipv6 ospf 15 area 0
+!
+router ospf 15
+ router-id 4.4.4.4
+ auto-cost reference-bandwidth 1000
+ passive-interface GigabitEthernet0/0
+ passive-interface GigabitEthernet0/1
+ passive-interface GigabitEthernet0/2
+ passive-interface GigabitEthernet0/3
+ passive-interface GigabitEthernet1/0
+ passive-interface Vlan105
+ passive-interface Vlan115
+ passive-interface Vlan125
+ passive-interface Vlan135
+ passive-interface Vlan145
+ passive-interface Vlan155
+ passive-interface Vlan200
+ passive-interface Vlan205
+ passive-interface Vlan215
+ passive-interface Vlan220
+ passive-interface Vlan305
+ passive-interface Vlan310
+ passive-interface Vlan315
+ passive-interface Vlan320
+ passive-interface Vlan325
+ passive-interface Vlan720
+ passive-interface Vlan888
+ passive-interface Vlan990
+ passive-interface Vlan999
+ network 10.150.0.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+!
+ip http server
+ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 10.150.127.2 5
+ip route 0.0.0.0 0.0.0.0 10.150.127.1 10
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+!
+logging trap debugging
+logging origin-id hostname
+logging source-interface Vlan720
+logging host 10.150.0.16
+ipv6 router ospf 15
+!
+!
+!
+!
+!
+control-plane
+!
+banner exec 
+IOSv - Cisco Systems Confidential -
 
-# EtherChannel Config
-int range g0/3,g1/0
-no ip address
-channel-group 2 mode active
+Supplemental End User License Restrictions
 
-int port-channel 2
-description EtherChannel2 DataCenter
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport nonegotiate
-switchport trunk native vlan 999
-switchport trunk allowed VLAN 105,115,125,135,145,155,200,205,210,215,220,305,310,315,320,325,720,990,999
+This IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.
 
-# Trunk Config
-int g0/0
-description Trunk link to Floor1-Acc1
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport nonegotiate
-switchport trunk native vlan 999
-switchport trunk allowed vlan 105,115,125,135,145,155,720,990,999
-no shut
+By using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.
+
+banner incoming 
+IOSv - Cisco Systems Confidential -
 
-int g0/1
-description Trunk link to Floor2-Acc1
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport nonegotiate
-switchport trunk native vlan 999
-switchport trunk allowed vlan 200,205,210,215,220,720,990,999
-no shut
+Supplemental End User License Restrictions
 
-int g0/2
-description Trunk link to Floor3-Acc1
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport nonegotiate
-switchport trunk native vlan 999
-switchport trunk allowed vlan 305,310,315,320,325,720,990,999
-no shut
+This IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.
 
-# Enable DHCP ip helper-address Config
-int vlan 105
-description PharmaPlus
-ip address 10.150.8.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 105 ip 10.150.8.1
-standby 105 preempt
-no shut
+By using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.
+
+banner login 
+IOSv - Cisco Systems Confidential -
 
-int vlan 115
-Description DynaLabs
-ip address 10.150.12.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 115 ip 10.150.12.1
-standby 115 preempt
-no shut
+Supplemental End User License Restrictions
 
-int vlan 125
-Description Reception
-ip address 10.150.16.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 125 ip 10.150.16.1
-standby 125 preempt
-no shut
+This IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.
 
-int vlan 135
-Description Security
-ip address 10.150.20.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 135 ip 10.150.20.1
-standby 135 preempt
-no shut
-
-int vlan 145
-Description Facilities
-ip address 10.150.24.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 145 ip 10.150.24.1
-standby 145 preempt
-no shut
-
-int vlan 155
-Description Visitor1
-ip address 10.150.28.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 155 ip 10.150.28.1
-standby 155 preempt
-no shut
-
-int vlan 200
-Description Physicians
-ip address 10.150.44.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 200 ip 10.150.44.1
-standby 200 preempt
-no shut
-
-int vlan 205
-description Childrens Health
-ip address 10.150.48.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 205 ip 10.150.48.1
-standby 205 preempt
-no shut
-
-int vlan 210
-Description CoolidgeLab
-ip address 10.150.52.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 210 ip 10.150.52.1
-standby 210 preempt
-no shut
-
-int vlan 215
-Description MassageSpa
-ip address 10.150.56.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 215 ip 10.150.56.1
-standby 215 preempt
-no shut
-
-int vlan 220
-description Visitor2
-ip address 10.150.60.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 220 ip 10.150.60.1
-standby 220 preempt
-no shut
-
-int vlan 305
-Description Allergist
-ip address 10.150.80.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 5 ip 10.150.80.1
-standby 5 priority 150
-standby 5 preempt
-no shut
-
-int vlan 310
-Description Physiotherapy
-ip address 10.150.84.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 10 ip 10.150.84.1
-standby 10 priority 150
-standby 10 preempt
-no shut
-
-int vlan 315
-Description DentalOffice
-ip address 10.150.88.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 15 ip 10.150.88.1
-standby 15 priority 150
-standby 15 preempt
-no shut
-
-int vlan 320
-Description ENT
-ip address 10.150.92.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 20 ip 10.150.92.1
-standby 20 priority 150
-standby 20 preempt
-no shut
-
-int vlan 325
-Description Visitor3
-ip address 10.150.96.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 25 ip 10.150.96.1
-standby 25 priority 150
-standby 25 preempt
-no shut
-
-int vlan 720
-Description IT
-ip address 10.150.120.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 72 ip 10.150.120.1
-standby 72 priority 150
-standby 72 preempt
-no shut
-
-int vlan 990
-Description DataCenter
-ip address 10.150.0.3 255.255.255.0
-ip helper-address 10.150.0.12
-standby 99 ip 10.150.0.1
-standby 99 priority 150
-standby 99 preempt
-no shut
-
-# OSPF
-router ospf 22
-router-id 1.1.1.1
-# Layer2
-network 10.150.0.0 0.0.0.255 area 0
-network 10.150.8.0 0.0.0.255 area 0
-network 10.150.12.0 0.0.0.255 area 0
-network 10.150.16.0 0.0.0.255 area 0
-network 10.150.20.0 0.0.0.255 area 0
-network 10.150.24.0 0.0.0.255 area 0
-network 10.150.28.0 0.0.0.255 area 0
-network 10.150.44.0 0.0.0.255 area 0
-network 10.150.48.0 0.0.0.255 area 0
-network 10.150.52.0 0.0.0.255 area 0
-network 10.150.56.0 0.0.0.255 area 0
-network 10.150.60.0 0.0.0.255 area 0
-network 10.150.80.0 0.0.0.255 area 0
-network 10.150.84.0 0.0.0.255 area 0
-network 10.150.88.0 0.0.0.255 area 0
-network 10.150.92.0 0.0.0.255 area 0
-network 10.150.96.0 0.0.0.255 area 0
-network 10.150.120.0 0.0.0.255 area 0
-# p2p
-network 10.150.127.0 0.0.0.3 area 0
-network 10.150.127.4 0.0.0.3 area 0
-network 10.150.127.8 0.0.0.3 area 0
-network 10.150.127.12 0.0.0.3 area 0
-network 10.150.127.16 0.0.0.3 area 0
-network 10.150.127.20 0.0.0.3 area 0
+By using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.
+
+!
+line con 0
+ exec-timeout 0 0
+ password cisco
+ logging synchronous
+ login
+line aux 0
+line vty 0 4
+ password cisco
+ login
+ transport input telnet
+line vty 5 15
+ password cisco
+ login
+ transport input telnet
+!
+!
+end
